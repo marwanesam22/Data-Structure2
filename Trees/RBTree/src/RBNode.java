@@ -6,8 +6,7 @@ public class RBNode < T extends Comparable<T> > {
     private RBNode<T> left;
     private boolean color;
 
-    public RBNode(T data, RBNode<T> parent, RBNode<T> right, RBNode<T> left, boolean color) {
-        this.data = data;
+    public RBNode(T data, RBNode<T> parent, RBNode<T> right, RBNode<T> left, boolean color) {this.data = data;
         this.parent = parent;
         this.right = right;
         this.left = left;
@@ -50,7 +49,7 @@ public class RBNode < T extends Comparable<T> > {
         return left;
     }
 
-    public boolean isColor() {
+    public boolean getColor() {
         return color;
     }
 }
