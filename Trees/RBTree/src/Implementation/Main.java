@@ -10,7 +10,12 @@ public class Main {
         int t;
         do {
             t = read.nextInt();
-            boolean x = tree.insert(t);
+            boolean x;
+            if(t == 630) {
+                x = tree.insert(t);
+            } else {
+                x = tree.insert(t);
+            }
             System.out.println((x?"inserted successfully":"insertion failed"));
             tree.traverseInorder(tree.getRoot());
             System.out.println("height = " + tree.getHeight());

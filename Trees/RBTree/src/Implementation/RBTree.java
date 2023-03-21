@@ -6,6 +6,7 @@ public class RBTree <T extends Comparable<T> > {
     static final boolean BLACK = true;
     public RBNode<T> root;
     private int numberOfNodes = 0;
+    private String testTree = "";
 
     public RBTree() { }
 
@@ -80,10 +81,8 @@ public class RBTree <T extends Comparable<T> > {
                     recolorNode = parent;
                     if(ggParentToG.equals("Left")) {
                         grandGParent.setLeft(singleRightRotation(parent));
-                        parent.setParent(grandGParent);
                     } else {
                         grandGParent.setRight(singleRightRotation(parent));
-                        parent.setParent(grandGParent);
                     }
                 }
 
@@ -98,41 +97,38 @@ public class RBTree <T extends Comparable<T> > {
                     recolorNode = parent;
                     if(ggParentToG.equals("Left")) {
                         grandGParent.setLeft(singleLeftRotation(parent));
-                        parent.setParent(grandGParent);
                     } else {
                         grandGParent.setRight(singleLeftRotation(parent));
-                        parent.setParent(grandGParent);
                     }
                 }
 
             } else if(grandToParent.equals("Right") && parentToChild.equals("Left")) {
-                RBNode<T> grandGParent = grandparent.getParent(); //null
-                recolorNode = current; //child red
-                if(grandGParent != null) {
+                RBNode<T> grandGParent = grandparent.getParent();
+                recolorNode = current;
+                if(grandGParent == null) {
+                    this.root = RLDoubleRotation(current);
+                    recolorNode = this.root;
+                }else {
                     String ggParentToG = whichSide(grandparent, grandGParent);//error is here
                     if (ggParentToG.equals("Left")) {
                         grandGParent.setLeft(RLDoubleRotation(current));
-                        current.setParent(grandGParent);
                     } else {
                         grandGParent.setRight(RLDoubleRotation(current));
-                        current.setParent(grandGParent);
                     }
-                }else {
-                    //rotation
-                    RLDoubleRotation(current);
-                    current.setParent(null); //50 its parent null
-                    this.root = current;
                 }
             } else {
                 RBNode<T> grandGParent = grandparent.getParent();
                 recolorNode = current;
-                String ggParentToG = whichSide(grandparent,grandGParent);
-                if(ggParentToG.equals("Left")) {
-                    grandGParent.setLeft(LRDoubleRotation(current));
-                    current.setParent(grandGParent);
+                if(grandGParent == null) {
+                    this.root = LRDoubleRotation(current);
+                    recolorNode = this.root;
                 } else {
-                    grandGParent.setRight(LRDoubleRotation(current));
-                    current.setParent(grandGParent);
+                    String ggParentToG = whichSide(grandparent, grandGParent);
+                    if (ggParentToG.equals("Left")) {
+                        grandGParent.setLeft(LRDoubleRotation(current));
+                    } else {
+                        grandGParent.setRight(LRDoubleRotation(current));
+                    }
                 }
             }
 
@@ -196,7 +192,6 @@ public class RBTree <T extends Comparable<T> > {
                 (node.getRight() != null && node.getRight() == null);
     }
 
-    private boolean getChildofOne
 
     public RBNode<T> getNodeToBeDeletedExactly(RBNode<T> current){
         //case1: no children
@@ -246,48 +241,65 @@ public class RBTree <T extends Comparable<T> > {
     private RBNode<T> singleRightRotation(RBNode<T> node) {
         RBNode<T> rightChild = node.getRight();
         RBNode<T> parent = node.getParent();
+        RBNode<T> grandParent = parent.getParent();
         node.setRight(parent);
         parent.setParent(node);
         parent.setLeft(rightChild);
+        if(rightChild != null) {
+            rightChild.setParent(parent);
+        }
+        if(grandParent == null) {
+            this.root = node;
+            node.setParent(null);
+        } else {
+            String side = whichSide(parent, grandParent);
+            if (side.equals("Left")) {
+                grandParent.setLeft(node);
+                node.setParent(grandParent);
+            } else {
+                grandParent.setRight(node);
+                node.setParent(grandParent);
+            }
+        }
         return node;
     }
 
     private RBNode<T> singleLeftRotation(RBNode<T> node) { //node = parent (middle node)
-        //child subtree
         RBNode<T> leftChild = node.getLeft();
-        //upper node (grandparent)
         RBNode<T> parent = node.getParent();
-        //rotation starts here
+        RBNode<T> grandParent = parent.getParent();
         node.setLeft(parent);
         parent.setParent(node);
         parent.setRight(leftChild);
+        if(leftChild != null) {
+            leftChild.setParent(parent);
+        }
+        if(grandParent == null) {
+            this.root = node;
+            node.setParent(null);
+        } else {
+            String side = whichSide(parent, grandParent);
+            if (side.equals("Left")) {
+                grandParent.setLeft(node);
+                node.setParent(grandParent);
+            } else {
+                grandParent.setRight(node);
+                node.setParent(grandParent);
+            }
+        }
         return node;
     }
 
     private RBNode<T> LRDoubleRotation(RBNode<T> node) {
         RBNode<T> grandParent = node.getParent().getParent();
         grandParent.setLeft(singleLeftRotation(node));
-        node.setParent(grandParent);
         return singleRightRotation(node);
     }
 
-    private RBNode<T> RLDoubleRotation(RBNode<T> node) { //node = child (Last node)
-        /*
-        * g
-        *   p
-        * c
-        * */
-        RBNode<T> grandParent = node.getParent().getParent(); //upper node
+    private RBNode<T> RLDoubleRotation(RBNode<T> node) {
+        RBNode<T> grandParent = node.getParent().getParent();
         grandParent.setRight(singleRightRotation(node));
-        node.setParent(grandParent);
-        /*
-        * g
-        *   c
-        *      p
-        *
-        * */
-        //turned into RR
-        return singleLeftRotation(node);//node.parent
+        return singleLeftRotation(node);
     }
     //-----------------------Rotation------------------------------------
 
@@ -358,5 +370,21 @@ public class RBTree <T extends Comparable<T> > {
     }
     //-----------------------traverse--------------------------------------
 
-    
+
+    //-----------------------testing--------------------------------------
+    public String test() {
+        testTree = "";
+        print(this.root);
+        return testTree;
+    }
+
+    private void print(RBNode<T> current) {
+        if(current == null) {
+            return;
+        }
+        print(current.getLeft());
+        testTree += current.getData() + " " + (current.getColor() == RED? "R" : "B" )+ " ";
+        print(current.getRight());
+    }
+    //-----------------------testing--------------------------------------
 }
