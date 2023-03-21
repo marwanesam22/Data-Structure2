@@ -196,6 +196,8 @@ public class RBTree <T extends Comparable<T> > {
                 (node.getRight() != null && node.getRight() == null);
     }
 
+    private boolean getChildofOne
+
     public RBNode<T> getNodeToBeDeletedExactly(RBNode<T> current){
         //case1: no children
         if(current.getRight() == null && current.getLeft() == null)
@@ -203,6 +205,7 @@ public class RBTree <T extends Comparable<T> > {
         //case2: one child
         if(hasOneChild(current)){
             //code here
+
         }
 
 
