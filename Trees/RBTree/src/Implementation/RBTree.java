@@ -4,8 +4,9 @@ public class RBTree <T extends Comparable<T> > {
 
     static final boolean RED = false;
     static final boolean BLACK = true;
-    public RBNode<T> root;
+    private RBNode<T> root;
     private int numberOfNodes = 0;
+    private String testTree = "";
 
     public RBTree() { }
 
@@ -80,10 +81,8 @@ public class RBTree <T extends Comparable<T> > {
                     recolorNode = parent;
                     if(ggParentToG.equals("Left")) {
                         grandGParent.setLeft(singleRightRotation(parent));
-                        parent.setParent(grandGParent);
                     } else {
                         grandGParent.setRight(singleRightRotation(parent));
-                        parent.setParent(grandGParent);
                     }
                 }
 
@@ -98,41 +97,38 @@ public class RBTree <T extends Comparable<T> > {
                     recolorNode = parent;
                     if(ggParentToG.equals("Left")) {
                         grandGParent.setLeft(singleLeftRotation(parent));
-                        parent.setParent(grandGParent);
                     } else {
                         grandGParent.setRight(singleLeftRotation(parent));
-                        parent.setParent(grandGParent);
                     }
                 }
 
             } else if(grandToParent.equals("Right") && parentToChild.equals("Left")) {
-                RBNode<T> grandGParent = grandparent.getParent(); //null
-                recolorNode = current; //child red
-                if(grandGParent != null) {
+                RBNode<T> grandGParent = grandparent.getParent();
+                recolorNode = current;
+                if(grandGParent == null) {
+                    this.root = RLDoubleRotation(current);
+                    recolorNode = this.root;
+                }else {
                     String ggParentToG = whichSide(grandparent, grandGParent);//error is here
                     if (ggParentToG.equals("Left")) {
                         grandGParent.setLeft(RLDoubleRotation(current));
-                        current.setParent(grandGParent);
                     } else {
                         grandGParent.setRight(RLDoubleRotation(current));
-                        current.setParent(grandGParent);
                     }
-                }else {
-                    //rotation
-                    RLDoubleRotation(current);
-                    current.setParent(null); //50 its parent null
-                    this.root = current;
                 }
             } else {
                 RBNode<T> grandGParent = grandparent.getParent();
                 recolorNode = current;
-                String ggParentToG = whichSide(grandparent,grandGParent);
-                if(ggParentToG.equals("Left")) {
-                    grandGParent.setLeft(LRDoubleRotation(current));
-                    current.setParent(grandGParent);
+                if(grandGParent == null) {
+                    this.root = LRDoubleRotation(current);
+                    recolorNode = this.root;
                 } else {
-                    grandGParent.setRight(LRDoubleRotation(current));
-                    current.setParent(grandGParent);
+                    String ggParentToG = whichSide(grandparent, grandGParent);
+                    if (ggParentToG.equals("Left")) {
+                        grandGParent.setLeft(LRDoubleRotation(current));
+                    } else {
+                        grandGParent.setRight(LRDoubleRotation(current));
+                    }
                 }
             }
 
@@ -157,69 +153,184 @@ public class RBTree <T extends Comparable<T> > {
 
     //-----------------------Delete------------------------------------
 
-    private RBNode< T > getInorderPredecessor(RBNode< T > current) {
-        //function to get the rightmost child of the parent of the given node
-        if (current.getRight() == null) return current;
-        return getInorderPredecessor(current.getRight());
-    }
-
     private RBNode< T > getInorderSuccessor(RBNode< T > current) {
         //function to get the leftmost child of the parent of the given node
         if (current.getLeft() == null) return current;
         return getInorderSuccessor(current.getLeft());
     }
 
-    private void delete(RBNode<T> node) {
-
+    private RBNode<T> getSibling(RBNode<T> node){
+        RBNode<T> parent = node.getParent();
+        String sideOfChildToParent = whichSide(node, parent);
+        if(sideOfChildToParent.equals("Left"))
+            return parent.getRight();
+        return parent.getLeft();
     }
+
+    private boolean checkSiblingChildrenBothBlack(RBNode<T> sibling){
+        if(sibling == null) return true;
+        if(sibling.getLeft() == null || sibling.getLeft().getColor() == BLACK){
+            if(sibling.getRight() == null || sibling.getRight().getColor() == BLACK)
+                return true;
+        }
+        return false;
+    }
+
+    private void deleteAccordingSide(RBNode<T> child, RBNode<T> parent){
+        if (whichSide(child, child.getParent()).equals("Left"))
+            child.getParent().setLeft(null);
+        else child.getParent().setRight(null);
+    }
+
+    private void fixDoubleBlack(RBNode<T> doubleBlackNode){
+        //base case
+        if(doubleBlackNode == this.root)
+            return;
+
+        RBNode<T> parent = doubleBlackNode.getParent(), sibling = getSibling(doubleBlackNode);
+        //node black, parent (), sibling black, sibling 2 children are black
+
+        if(doubleBlackNode.getColor() == BLACK && sibling.getColor() == BLACK && checkSiblingChildrenBothBlack(sibling)){
+            sibling.setColor(RED);
+            if(parent.getColor() == RED)
+                parent.setColor(BLACK);
+            else
+                fixDoubleBlack(parent);
+        }
+
+        //node black, parent any, at least one of the children of sibling is red
+        else if(doubleBlackNode.getColor() == BLACK && sibling.getColor() == BLACK && !checkSiblingChildrenBothBlack(sibling)){
+            //100% has more than one red child
+            RBNode<T> sRightChild = sibling.getRight();
+            RBNode<T> sLeftChild = sibling.getLeft();
+
+            if(whichSide(sibling, parent).equals("Right")){
+                //recolor left, left to double rotate --> one red child on the left of the sibling
+                //RR
+                if(sRightChild != null && sRightChild.getColor() == RED){
+                    if(parent.getColor()==BLACK) {
+                        sRightChild.setColor(BLACK);
+                    }
+                    else{
+                        sibling.setColor(RED);
+                        sRightChild.setColor(BLACK);
+                        parent.setColor(BLACK);
+                    }
+                    singleLeftRotation(sibling);
+                }else {
+                    //RL
+                    //(Right child is 100% black, leftChild is 100% red)
+                    //left child is black, RL doubleRotate
+                    if (parent.getColor() == BLACK) {
+                        //recoloring
+                        sLeftChild.setColor(BLACK);
+                    }
+                    parent.setColor(BLACK);
+                    RLDoubleRotation(sLeftChild);
+                }
+            }
+            else{
+                if(sLeftChild != null && sLeftChild.getColor() == RED){
+                    if(parent.getColor() == BLACK){
+                        sLeftChild.setColor(BLACK);
+                    }
+                    else{
+                        sibling.setColor(RED);
+                        sLeftChild.setColor(BLACK);
+                        parent.setColor(BLACK);
+                    }
+                    singleRightRotation(sibling);
+                }else{
+                    //LR
+                    if (parent.getColor() == BLACK){
+                        sRightChild.setColor(BLACK);
+                    }
+                    parent.setColor(BLACK);
+                    LRDoubleRotation(sRightChild);
+                }
+            }
+        }
+        else if(doubleBlackNode.getColor() == BLACK && sibling.getColor() == RED){
+            parent.setColor(RED);
+            sibling.setColor(BLACK);
+            if(whichSide(sibling, parent).equals("Right"))
+                singleLeftRotation(sibling);
+            else
+                singleRightRotation(sibling);
+            fixDoubleBlack(doubleBlackNode);
+        }
+    }
+
+    private void delete(RBNode<T> node) {
+        RBNode<T> parent = node.getParent();
+        //Case0: Delete Root
+        if(parent == null) {
+            this.root = null;
+        }
+        else{
+            //Case1: node is leaf & RED
+            //Tested and works well
+            RBNode<T> sibling = getSibling(node);
+            if(node.getColor() == RED) {
+                deleteAccordingSide(node, parent);
+            }
+
+            //node black, parent red, sibling black, children of sibling are black
+            //solution : node black, parent black, sibling red
+            //Tested and works well
+            //Test case used : 10 20 5 30 25 40 15 --> delete 15 40 20
+            else if(node.getColor() == BLACK){
+                //node is double black --> fix(node)
+                if(parent.getColor() == RED && sibling == null){
+                    parent.setColor(BLACK);
+                    deleteAccordingSide(node, parent);
+                }
+                else {
+                    fixDoubleBlack(node);
+                    deleteAccordingSide(node, parent);
+                }
+
+            }
+
+        }
+        this.numberOfNodes--;
+    }
+
 
     public boolean delete(T key){
         RBNode<T> nodeToBeDeleted = search(this.root, key);
         if(nodeToBeDeleted == null)
             return false;
-
-//        if(nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null)
-//            delete(nodeToBeDeleted);
-//        else if (nodeToBeDeleted.getRight() != null){
-//            RBNode<T> successor = getInorderSuccessor(nodeToBeDeleted.getRight());
-//            delete(swapData(nodeToBeDeleted, successor, "First").getData());
-//        }
-//        else if(nodeToBeDeleted.getLeft() != null){
-//            RBNode<T> predecessor = getInorderPredecessor(nodeToBeDeleted.getLeft());
-//            delete(swapData(nodeToBeDeleted, predecessor, "First").getData());
-//        }
+        delete(getNodeToBeDeletedExactly(nodeToBeDeleted));
         return true;
     }
 
-    private boolean hasOneChild(RBNode<T> node){
-        return (node.getLeft() == null && node.getRight() != null)||
-                (node.getRight() != null && node.getRight() == null);
+    private RBNode<T> getOnlyChild(RBNode<T> node){
+        if(node.getLeft() == null && node.getRight() != null)
+            return node.getRight();
+        else if(node.getLeft() != null && node.getRight() == null){
+            return node.getLeft();
+        }
+        return null;
     }
 
-    private boolean getChildofOne
 
-    public RBNode<T> getNodeToBeDeletedExactly(RBNode<T> current){
+    //Tested, It works well
+    private RBNode<T> getNodeToBeDeletedExactly(RBNode<T> current){
         //case1: no children
         if(current.getRight() == null && current.getLeft() == null)
             return current;
         //case2: one child
-        if(hasOneChild(current)){
+        RBNode<T> onlyChild = getOnlyChild(current);
+        if(onlyChild!= null){
             //code here
-
+            return getNodeToBeDeletedExactly(swapData(current, onlyChild));
         }
-
-
-        //case3: successor/predecessor
-        else if (current.getRight() != null){
+        //case3: successor (100% has 2 children)
+        else{
             RBNode<T> successor = getInorderSuccessor(current.getRight());
-            current = getNodeToBeDeletedExactly(swapData(current, successor));
+            return getNodeToBeDeletedExactly(swapData(current, successor));
         }
-
-        else if(current.getLeft() != null){
-            RBNode<T> predecessor = getInorderPredecessor(current.getLeft());
-            current = getNodeToBeDeletedExactly(swapData(current, predecessor));
-        }
-        return current;
     }
 
     //-----------------------Delete------------------------------------
@@ -246,48 +357,63 @@ public class RBTree <T extends Comparable<T> > {
     private RBNode<T> singleRightRotation(RBNode<T> node) {
         RBNode<T> rightChild = node.getRight();
         RBNode<T> parent = node.getParent();
+        RBNode<T> grandParent = parent.getParent();
         node.setRight(parent);
         parent.setParent(node);
         parent.setLeft(rightChild);
+        if(rightChild != null)
+            rightChild.setParent(parent);
+        if(grandParent == null) {
+            this.root = node;
+            node.setParent(null);
+        } else {
+            String side = whichSide(parent, grandParent);
+            if (side.equals("Left")) {
+                grandParent.setLeft(node);
+                node.setParent(grandParent);
+            } else {
+                grandParent.setRight(node);
+                node.setParent(grandParent);
+            }
+        }
         return node;
     }
 
     private RBNode<T> singleLeftRotation(RBNode<T> node) { //node = parent (middle node)
-        //child subtree
         RBNode<T> leftChild = node.getLeft();
-        //upper node (grandparent)
         RBNode<T> parent = node.getParent();
-        //rotation starts here
+        RBNode<T> grandParent = parent.getParent();
         node.setLeft(parent);
         parent.setParent(node);
         parent.setRight(leftChild);
+        if(leftChild != null)
+            leftChild.setParent(parent);
+        if(grandParent == null) {
+            this.root = node;
+            node.setParent(null);
+        } else {
+            String side = whichSide(parent, grandParent);
+            if (side.equals("Left")) {
+                grandParent.setLeft(node);
+                node.setParent(grandParent);
+            } else {
+                grandParent.setRight(node);
+                node.setParent(grandParent);
+            }
+        }
         return node;
     }
 
     private RBNode<T> LRDoubleRotation(RBNode<T> node) {
         RBNode<T> grandParent = node.getParent().getParent();
         grandParent.setLeft(singleLeftRotation(node));
-        node.setParent(grandParent);
         return singleRightRotation(node);
     }
 
-    private RBNode<T> RLDoubleRotation(RBNode<T> node) { //node = child (Last node)
-        /*
-        * g
-        *   p
-        * c
-        * */
-        RBNode<T> grandParent = node.getParent().getParent(); //upper node
+    private RBNode<T> RLDoubleRotation(RBNode<T> node) {
+        RBNode<T> grandParent = node.getParent().getParent();
         grandParent.setRight(singleRightRotation(node));
-        node.setParent(grandParent);
-        /*
-        * g
-        *   c
-        *      p
-        *
-        * */
-        //turned into RR
-        return singleLeftRotation(node);//node.parent
+        return singleLeftRotation(node);
     }
     //-----------------------Rotation------------------------------------
 
@@ -358,5 +484,21 @@ public class RBTree <T extends Comparable<T> > {
     }
     //-----------------------traverse--------------------------------------
 
+    //-----------------------testing--------------------------------------
+    public String test() {
+        testTree = "";
+        print(this.root);
+        return testTree;
+    }
+
+    private void print(RBNode<T> current) {
+        if(current == null) {
+            return;
+        }
+        print(current.getLeft());
+        testTree += current.getData() + " " + (current.getColor() == RED? "R" : "B" )+ " ";
+        print(current.getRight());
+    }
+    //-----------------------testing--------------------------------------
     
 }
