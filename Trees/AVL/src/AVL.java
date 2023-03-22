@@ -188,6 +188,8 @@ public class AVL < T extends Comparable < T >> implements IBalancedTree < T > {
 
     ////////////// height function////////////////////////////
     public int height() {
+        if(this.root == null)
+            return 0;
         return this.root.getHeight();
     }
     ////////////// end height function////////////////////////////
