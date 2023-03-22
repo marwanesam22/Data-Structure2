@@ -60,7 +60,7 @@ public class simpleDictionary {
             System.out.println("Please enter a valid file path");
         }
         System.out.println("The number of successfully deleted words = " + nSuccesses + " words");
-        System.out.println("The number of already existing words = " + nFails + " words");
+        System.out.println("The number of non existing words = " + nFails + " words");
     }
 
     public int size(){
