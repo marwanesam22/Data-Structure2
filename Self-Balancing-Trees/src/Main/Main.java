@@ -19,16 +19,13 @@ public class Main {
         System.out.println("2-for a Red-Black-tree based dictionary");
         treeOption = scan.nextInt();
 
-        switch (treeOption){
-            case 1:
-                dictionary = new simpleDictionary(1);
-                break;
-            case 2:
-                dictionary = new simpleDictionary(2);
-                break;
-            default:
+        switch (treeOption) {
+            case 1 -> dictionary = new simpleDictionary(1);
+            case 2 -> dictionary = new simpleDictionary(2);
+            default -> {
                 System.out.println("Invalid option");
                 return;
+            }
         }
 
         while(true){
@@ -45,6 +42,8 @@ public class Main {
             System.out.println("6-Size");
             System.out.println("7-Height");
             optionSelected = scan.nextInt();
+
+            scan.nextLine(); //for cleaning the buffer
 
             if(optionSelected == 1){
                 //insert new word option
@@ -84,50 +83,42 @@ public class Main {
 
             else if(optionSelected == 4){
                 //batch insert option
-                int nSuccesses = 0, nFails = 0;
-                while (true) {
+                String filePath = "";
+                while(true){
                     System.out.print("please enter the file path: ");
-                    String filePath = scan.next();
+                    filePath = scan.nextLine();
                     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-                        String word;
-                        while ((word = reader.readLine()) != null) {
-                            if (dictionary.insert(word)) {
-                                nSuccesses++;
-                            } else {
-                                nFails++;
-                            }
-                        }
                         break;
                     } catch (IOException e) {
                         System.out.println("Please enter a valid file path");
                     }
                 }
-                System.out.println("The number of newly added words = " + nSuccesses + " words");
-                System.out.println("The number of already existing words = " + nFails + " words");
+
+                long startTime = System.currentTimeMillis();
+                dictionary.batchInsert(filePath);
+                long endTime = System.currentTimeMillis();
+                double time_taken = (endTime-startTime);
+                System.out.println("Time taken is: " + time_taken + " ms");
             }
 
             else if(optionSelected == 5){
                 //batch delete option
-                int nSuccesses = 0, nFails = 0;
-                while (true) {
+                String filePath = "";
+                while(true){
                     System.out.print("please enter the file path: ");
-                    String filePath = scan.next();
+                    filePath = scan.nextLine();
                     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-                        String word;
-                        while ((word = reader.readLine()) != null) {
-                            if (dictionary.delete(word)) {
-                                nSuccesses++;
-                            } else {
-                                nFails++;
-                            }
-                        }
                         break;
                     } catch (IOException e) {
                         System.out.println("Please enter a valid file path");
                     }
                 }
-                System.out.println("The number of successfully deleted words = " + nSuccesses + " words");
-                System.out.println("The number of non existing words = " + nFails + " words");
+
+                long startTime = System.currentTimeMillis();
+                dictionary.batchDelete(filePath);
+                long endTime = System.currentTimeMillis();
+                double time_taken = (endTime-startTime);
+                System.out.println("Time taken is: " + time_taken + " ms");
             }
 
             else if(optionSelected == 6){
@@ -153,6 +144,10 @@ public class Main {
         simpleDictionary();
     }
 }
+
+/*
+C:\Users\Adel\Desktop\Lab1\Data-Structure2\Self-Balancing-Trees
+ */
 
 
 
