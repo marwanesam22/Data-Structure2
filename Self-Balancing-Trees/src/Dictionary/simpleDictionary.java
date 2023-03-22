@@ -18,7 +18,6 @@ public class simpleDictionary {
         return dictionary.delete(word);
     }
 
-
     public boolean search(String word){
         return dictionary.search(word);
     }

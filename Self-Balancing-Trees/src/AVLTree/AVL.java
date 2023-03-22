@@ -8,11 +8,7 @@ public class AVL < T extends Comparable < T >> implements IBalancedTree<T> {
     private AvlNode < T > root;
     private String testTree = "";
 
-    public AVL() {
-        //default constructor
-//        this.Number_of_nodes = 0;
-//        this.root = null;
-    }
+    public AVL() {}
 
     public AvlNode < T > getRoot() {
         return root;
@@ -197,7 +193,7 @@ public class AVL < T extends Comparable < T >> implements IBalancedTree<T> {
 
     ////////////// height function////////////////////////////
     public int height() {
-        return this.root != null? this.root.getHeight() : 0;
+        return this.root != null? this.root.getHeight()+1 : 0;
     }
     ////////////// end height function////////////////////////////
 
