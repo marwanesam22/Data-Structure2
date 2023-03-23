@@ -155,7 +155,6 @@ public class RBTree<T extends Comparable<T>> {
     //-----------------------Delete------------------------------------
 
 
-
     private void deleteAccordingSide(RBNode<T> child, RBNode<T> parent) {
         if (whichSide(child, child.getParent()).equals("Left"))
             child.getParent().setLeft(null);
