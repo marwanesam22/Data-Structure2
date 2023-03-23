@@ -17,37 +17,55 @@ public class RBTree<T extends Comparable<T>> implements IBalancedTree<T> {
 
     //-----------------------insert------------------------------------
     public boolean insert(T key) {
-
-        if (search(key))
-            return false;
-
-        root = insertRecursively(root, key);
-        fixTreeAfterInsert(search(this.root, key));
-        numberOfNodes++;
-        return true;
+        return insertInTree(key);
     }
 
-    private RBNode<T> insertRecursively(RBNode<T> current, T key) {
+    private boolean insertInTree(T key) {
 
-        // Empty Tree
-        if (root == null) {
-            return new RBNode<>(key, null, null, null, BLACK);
+        RBNode<T> node = this.root, parent = null;
+
+        while(node != null) {
+            parent = node;
+            if(key.compareTo(node.getData()) > 0)
+                node = node.getRight();
+            else if(key.compareTo(node.getData()) < 0)
+                node = node.getLeft();
+            else
+                return false;
         }
 
-        if (current == null) {
-            return new RBNode<>(key, null, null, null, RED);
-        }
+        RBNode<T> newNode = new RBNode<T>(key,parent,null,null,RED);
+        this.numberOfNodes++;
+        if(parent == null)
+            this.root = newNode;
+        else if(key.compareTo(parent.getData()) > 0)
+            parent.setRight(newNode);
+        else
+            parent.setLeft(newNode);
 
-        if (key.compareTo(current.getData()) > 0) {
-            current.setRight(insertRecursively(current.getRight(), key));
-            current.getRight().setParent(current);
+        fixTreeAfterInsert(newNode);
+        return true;
 
-        } else if (key.compareTo(current.getData()) < 0) {
-            current.setLeft(insertRecursively(current.getLeft(), key));
-            current.getLeft().setParent(current);
-        }
+//        // Empty Tree
+//        if (root == null) {
+//            return new RBNode<>(key, null, null, null, BLACK);
+//        }
+//
+//        if (current == null) {
+//            return new RBNode<>(key, null, null, null, RED);
+//        }
+//
+//        if (key.compareTo(current.getData()) > 0) {
+//            current.setRight(insertRecursively(current.getRight(), key));
+//            current.getRight().setParent(current);
+//
+//        } else if (key.compareTo(current.getData()) < 0) {
+//            current.setLeft(insertRecursively(current.getLeft(), key));
+//            current.getLeft().setParent(current);
+//        }
+//
+//        return current;
 
-        return current;
     }
 
     private void fixTreeAfterInsert(RBNode<T> current) {
