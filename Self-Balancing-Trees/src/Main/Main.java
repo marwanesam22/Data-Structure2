@@ -94,11 +94,11 @@ public class Main {
                     }
                 }
 
-                long startTime = System.currentTimeMillis();
+                long startTime = System.nanoTime();
                 dictionary.batchInsert(filePath);
-                long endTime = System.currentTimeMillis();
-                double time_taken = (endTime-startTime);
-                System.out.println("Time taken is: " + time_taken + " ms");
+                long endTime = System.nanoTime();
+                double time_taken = (endTime-startTime)/(1000.0);
+                System.out.println("Time taken is: " + time_taken + " us");
             }
 
             else if(optionSelected == 5){
@@ -114,11 +114,11 @@ public class Main {
                     }
                 }
 
-                long startTime = System.currentTimeMillis();
+                long startTime = System.nanoTime();
                 dictionary.batchDelete(filePath);
-                long endTime = System.currentTimeMillis();
-                double time_taken = (endTime-startTime);
-                System.out.println("Time taken is: " + time_taken + " ms");
+                long endTime = System.nanoTime();
+                double time_taken = (endTime-startTime)/(1000.0);
+                System.out.println("Time taken is: " + time_taken + " us");
             }
 
             else if(optionSelected == 6){
@@ -146,7 +146,7 @@ public class Main {
 }
 
 /*
-C:\Users\Adel\Desktop\Lab1\Data-Structure2\Self-Balancing-Trees
+C:\Users\Adel\Desktop\Lab1\Data-Structure2\Self-Balancing-Trees\in1000000.txt
  */
 
 
