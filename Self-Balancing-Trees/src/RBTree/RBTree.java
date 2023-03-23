@@ -46,26 +46,6 @@ public class RBTree<T extends Comparable<T>> implements IBalancedTree<T> {
         fixTreeAfterInsert(newNode);
         return true;
 
-//        // Empty Tree
-//        if (root == null) {
-//            return new RBNode<>(key, null, null, null, BLACK);
-//        }
-//
-//        if (current == null) {
-//            return new RBNode<>(key, null, null, null, RED);
-//        }
-//
-//        if (key.compareTo(current.getData()) > 0) {
-//            current.setRight(insertRecursively(current.getRight(), key));
-//            current.getRight().setParent(current);
-//
-//        } else if (key.compareTo(current.getData()) < 0) {
-//            current.setLeft(insertRecursively(current.getLeft(), key));
-//            current.getLeft().setParent(current);
-//        }
-//
-//        return current;
-
     }
 
     private void fixTreeAfterInsert(RBNode<T> current) {

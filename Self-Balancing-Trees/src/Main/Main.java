@@ -145,9 +145,6 @@ public class Main {
     }
 }
 
-/*
-C:\Users\Adel\Desktop\Lab1\Data-Structure2\Self-Balancing-Trees\in1000000.txt
- */
 
 
 
