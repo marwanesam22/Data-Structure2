@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class AVLTest {
-    private String insertPath = new File("").getAbsolutePath().concat("\\src\\AVLTree\\TestCases\\InsertCases\\");
+    private  String insertPath = new File("").getAbsolutePath().concat("\\src\\AVLTree\\TestCases\\InsertCases\\");
     private String deletePath = new File("").getAbsolutePath().concat("\\src\\AVLTree\\TestCases\\DeleteCases\\");
     private String searchPath = new File("").getAbsolutePath().concat("\\src\\AVLTree\\TestCases\\SearchCases\\");
     private String sizePath = new File("").getAbsolutePath().concat("\\src\\AVLTree\\TestCases\\SizeCases\\");

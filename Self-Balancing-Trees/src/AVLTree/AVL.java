@@ -94,20 +94,12 @@ public class AVL < T extends Comparable < T >> implements IBalancedTree<T> {
         }
 
         switch (imbalance_cause) {
-            case "ll":
-                node = single_left_rotation(node);
-                break;
-            case "rr":
-                node = single_right_rotation(node);
-                break;
-            case "lr":
-                node = double_left_rotation(node);
-                break;
-            case "rl":
-                node = double_right_rotation(node);
-                break;
-            default:
-
+            case "ll" -> node = single_left_rotation(node);
+            case "rr" -> node = single_right_rotation(node);
+            case "lr" -> node = double_left_rotation(node);
+            case "rl" -> node = double_right_rotation(node);
+            default -> {
+            }
         }
         return node;
     }
@@ -210,7 +202,7 @@ public class AVL < T extends Comparable < T >> implements IBalancedTree<T> {
     }
 
     public boolean search(T data) {
-        return search(this.root, data) != null ? true : false;
+        return search(this.root, data) != null;
     }
 
     ////////////////end search functions/////////////////////////////
