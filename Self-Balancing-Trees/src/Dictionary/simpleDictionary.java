@@ -27,7 +27,7 @@ public class simpleDictionary {
         return dictionary.search(word);
     }
 
-    public void batchInsert(String filePath){
+    public int[] batchInsert(String filePath){
         int nSuccesses = 0, nFails = 0;
             try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
                 String word;
@@ -43,9 +43,10 @@ public class simpleDictionary {
             }
         System.out.println("The number of newly added words = " + nSuccesses + " words");
         System.out.println("The number of already existing words = " + nFails + " words");
+        return new int[]{nSuccesses,nFails};
     }
 
-    public void batchDelete(String filePath){
+    public int[] batchDelete(String filePath){
         int nSuccesses = 0, nFails = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String word;
@@ -61,6 +62,7 @@ public class simpleDictionary {
         }
         System.out.println("The number of successfully deleted words = " + nSuccesses + " words");
         System.out.println("The number of non existing words = " + nFails + " words");
+        return new int[]{nSuccesses,nFails};
     }
 
     public int size(){
