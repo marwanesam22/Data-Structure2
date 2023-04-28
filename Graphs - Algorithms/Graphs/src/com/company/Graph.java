@@ -1,27 +1,53 @@
 package com.company;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.security.KeyPair;
 import java.sql.Array;
 import java.util.*;
 
 public class Graph {
     Map<Integer, Map<Integer, Integer>> graph; /* first int for node number - second map <neighbourNode, weight> */
-    final int oo = Integer.MAX_VALUE;
+    final int oo = 1000000000;
+    int V,E;
+    int[][] costsMatrix;
 
-    Graph(int v, int e, int [][] arr){
-        graph = new HashMap<>(v);
-        for(int i=0; i<v; i++){
-            Map<Integer, Integer> innerMap  = new HashMap<>();
-            graph.put(i, innerMap);
-        }
+    Graph(String path){
+        graphInitializer(path);
+    }
 
-        for(int i=0; i<e; i++) {
-            int from = arr[i][0];
-            int to = arr[i][1];
-            int weight = arr[i][2];
-            Map<Integer, Integer> innerMap  = graph.get(from);
-            innerMap.put(to, weight);
-            graph.put(from, innerMap);
+    private void graphInitializer(String inputFile){
+        System.out.println("Path is:" + inputFile);
+        try {
+            Scanner scanner = new Scanner(new File(inputFile));
+            V = scanner.nextInt();
+            graph = new HashMap<>(V);
+            for(int i=0; i<V; i++){
+                Map<Integer, Integer> innerMap  = new HashMap<>();
+                graph.put(i, innerMap);
+            }
+
+            E = scanner.nextInt();
+            System.out.println("V = " + V);
+            costsMatrix= new int[V][V];
+            for (int i = 0; i < E; i++) {
+                int start = scanner.nextInt();
+                int end = scanner.nextInt();
+                int weight = scanner.nextInt();
+                costsMatrix[start][end] = weight;
+                Map<Integer, Integer> innerMap  = graph.get(start);
+                innerMap.put(end, weight);
+                graph.put(start, innerMap);
+            }
+            scanner.close();
+            // Print the graph
+            for (int i = 0; i < V; i++) {
+                for (int j = 0; j < V; j++) {
+                    if(i != j && costsMatrix[i][j] == 0)costsMatrix[i][j] = oo;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -41,7 +67,6 @@ public class Graph {
 
         costs[source_node] = 0;
         priorityQueue.offer(new Pair(0, source_node));
-
         while (!priorityQueue.isEmpty()){
             int node = priorityQueue.peek().second;
             priorityQueue.poll();
@@ -60,8 +85,31 @@ public class Graph {
                 priorityQueue.offer(new Pair(costs[neighbour_node], neighbour_node));
             }
         }
-
         System.out.println("finished DI");
     }
 
+    public boolean floyed_warshal(int[][] predecessors, int[][] costs){
+        int[][] tmp = new int[predecessors.length][predecessors[0].length];
+        for(int i = 0 ; i < predecessors.length ; i++){
+            for(int j = 0 ; j < predecessors.length ; j++){
+                for(int k = 0 ; k < tmp[0].length ; k++){
+                    if(j == i || k == i)tmp[j][k] = predecessors[j][k];
+                    else{
+                        tmp[j][k] = Math.min(predecessors[j][k], (predecessors[j][i] + predecessors[i][k]));
+                    }
+                }
+            }
+            predecessors = tmp;
+        }
+
+        for(int i = 0 ; i<costs.length ; i++){
+            for(int j = 0 ; j<costs.length ; j++){
+                costs[i][j] = predecessors[i][j];
+                if((i == j) && costs[i][j] < 0)return false;
+            }
+        }
+        return true;
+    }
+
 }
+
