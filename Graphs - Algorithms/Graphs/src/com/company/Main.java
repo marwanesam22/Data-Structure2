@@ -9,8 +9,18 @@ public class Main {
         Scanner input = new Scanner(System.in);
         Graph g = new Graph(input.nextLine());
         int[][] costs = new int[g.get_graph_size()][g.get_graph_size()];
-        System.out.println(g.floyed_warshal(g.costsMatrix,costs));
-        System.out.println(Arrays.deepToString(costs));
+//        System.out.println(g.floyed_warshal(g.costsMatrix,costs));
+//        System.out.println(Arrays.deepToString(costs));
+
+        int[] bfCosts = new int[g.get_graph_size()];
+        Arrays.fill(bfCosts, Integer.MAX_VALUE);
+        bfCosts[0] = 0;
+        int[] bfParents = new int[g.get_graph_size()];
+        System.out.println(g.bfShortestPath(0, bfCosts, bfParents));
+        System.out.println(Arrays.toString(bfCosts));
+        System.out.println(Arrays.toString(bfParents));
+
+
 //        System.out.println(Arrays.deepToString(g.floyed_warshal2(g.costsMatrix)));
 //        int v = input.nextInt();
 //        int e = input.nextInt();

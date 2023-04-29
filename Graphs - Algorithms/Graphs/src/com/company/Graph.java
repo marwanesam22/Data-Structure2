@@ -111,5 +111,54 @@ public class Graph {
         return true;
     }
 
+    public boolean bfShortestPath(int sourceNode, int[] costs, int[] parents){
+        //returns true if shortest paths are defined in the graph,
+        //when there are no negative cycles
+        //else returns false
+        //updates costs, and parents data which are given as parameters
+
+        //costs --> cost of the shortest path between source node and all other nodes
+        //parents --> the parent of target node in the shortest path from source to target
+
+        //number of nodes
+        int n = costs.length;
+
+        boolean shortestPathExists = true;
+        //loop n-1 times
+        for(int i = 0; i < n-1; i++){
+            //for each node
+            for(int j = 0; j < n; j++){
+                final int node = j;
+                //for each neighbor in the current node
+                graph.get(node).forEach((neighbor, weight)->{
+                    int newCost = costs[node]+weight;
+                    //if newCost is cheaper than known cost, update
+                    if(newCost < costs[neighbor]){
+                        costs[neighbor] = newCost;
+                        parents[neighbor] = node;
+                    }
+                });
+            }
+        }
+
+        //last iteration to check for negative loops
+        //for each node
+        for(int j = 0; j < n; j++){
+            final int node = j;
+
+            for(Map.Entry pair: graph.get(node).entrySet()){
+                int neighbor = (int)pair.getKey();
+                int weight = (int)pair.getValue();
+                int newCost = costs[node]+weight;
+                if(newCost != costs[neighbor]){
+                    shortestPathExists = false;
+                    break;
+                }
+            }
+            if(!shortestPathExists){break;}
+        }
+        return shortestPathExists;
+    }
+
 }
 
