@@ -80,11 +80,12 @@ public class Graph {
                         costs[neighbour_node] = costs[node] + weight;
                         parent[neighbour_node] = node;
                     }
+                    priorityQueue.offer(new Pair(costs[neighbour_node], neighbour_node));
                 }
-                priorityQueue.offer(new Pair(costs[neighbour_node], neighbour_node));
             }
         }
         System.out.println("finished DI");
+        System.out.println(Arrays.toString(costs));
     }
 
     public boolean floyed_warshal(int[][] predecessors, int[][] costs){

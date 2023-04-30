@@ -31,7 +31,6 @@ public class CLI {
                 int algo = specify_algorithm();
                 if(algo == 1){
                     //Dijkstra
-                    //there's an error in dij
                     int[] parents = new int[graph.size()];
                     int[] costs = new int[graph.size()];
                     graph.apply_dijkstra(src,costs,parents);
@@ -59,6 +58,7 @@ public class CLI {
                     }
                 } else if (algo == 2) {
                     //bellman
+                    //TODO errornous bellman
                     int[] parents = new int[graph.size()];
                     int[] costs = new int[graph.size()];
                     graph.bfShortestPath(src,costs,parents);
@@ -155,6 +155,7 @@ public class CLI {
     }
 
     private String getPath(int[] parents, int src, int dest){
+        //TODO if the node has two digits
         String path = "";
         path += dest;
         if(src == dest)return path;
