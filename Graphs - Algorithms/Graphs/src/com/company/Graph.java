@@ -9,9 +9,11 @@ import java.util.*;
 public class Graph {
     Map<Integer, Map<Integer, Integer>> graph; /* first int for node number - second map <neighbourNode, weight> */
     final int oo = 1000000000;
-    int V,E;
-    int[][] costsMatrix;
-    Graph(String path){
+    public int V,E;
+    public int[][] costsMatrix;
+    public int[][] costFloyd;
+    public int[] costDijkstra;
+    public Graph(String path){
         graphInitializer(path);
     }
 
@@ -49,11 +51,11 @@ public class Graph {
         }
     }
 
-    int size(){
+    public int size(){
         return graph.size();
     }
 
-    void apply_dijkstra(int source_node, int []costs, int []parent){
+     public void apply_dijkstra(int source_node, int []costs, int []parent){
         System.out.println("Inside apply dij");
         int vertices = size();
         boolean []visited = new boolean[vertices];
@@ -84,6 +86,7 @@ public class Graph {
                 }
             }
         }
+        this.costDijkstra = costs;
         System.out.println("finished DI");
         System.out.println(Arrays.toString(costs));
     }
@@ -100,6 +103,7 @@ public class Graph {
             }
             predecessors = costs;
         }
+        this.costFloyd = predecessors;
         System.out.println(Arrays.deepToString(predecessors));
         System.out.println(Arrays.deepToString(costs));
         return true;
