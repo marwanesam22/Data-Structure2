@@ -124,8 +124,8 @@ public class Graph {
         int n = costs.length;
 
         boolean shortestPathExists = true;
-        //loop n-1 times
-        for(int i = 0; i < n-1; i++){
+        //loop |E|-1 times
+        for(int i = 0; i < this.E-1; i++){
             //for each node
             for(int j = 0; j < n; j++){
                 final int node = j;
@@ -150,7 +150,7 @@ public class Graph {
                 int neighbor = (int)pair.getKey();
                 int weight = (int)pair.getValue();
                 int newCost = costs[node]+weight;
-                if(newCost != costs[neighbor]){
+                if(newCost < costs[neighbor]){
                     shortestPathExists = false;
                     break;
                 }
