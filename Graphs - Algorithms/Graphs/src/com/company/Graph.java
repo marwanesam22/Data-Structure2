@@ -119,7 +119,9 @@ public class Graph {
 
         //number of nodes
         int n = costs.length;
-
+        Arrays.fill(costs, oo);
+        Arrays.fill(parents, -1);
+        costs[sourceNode] = 0;
         boolean shortestPathExists = true;
         //loop |E|-1 times
         for(int i = 0; i < this.E-1; i++){
