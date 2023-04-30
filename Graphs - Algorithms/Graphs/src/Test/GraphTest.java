@@ -65,7 +65,6 @@ class GraphTest {
         assertArrayEquals( result, cost );
     }
 
-
     // right answer for negative edges + cycles
     @Test
     void apply_dijkstra4() {
@@ -130,6 +129,7 @@ class GraphTest {
 
     // ----------------------BELLMAN-FORD TESTS----------------------------
 
+    // test large graph on dijkstra
     @Test
     void bellmanFord1() {
         Graph g = new Graph(filePath.concat("\\Test1.txt"));
@@ -140,6 +140,7 @@ class GraphTest {
         assertTrue(negativeCycle);
     }
 
+    // test small graph on dijkstra
     @Test
     void bellmanFord2() {
         Graph g = new Graph(filePath.concat("\\Test2.txt"));
@@ -150,6 +151,7 @@ class GraphTest {
         assertTrue(negativeCycle);
     }
 
+    // test small graph on dijkstra
     @Test
     void bellmanFord3() {
         Graph g = new Graph(filePath.concat("\\Test3.txt"));
@@ -160,6 +162,7 @@ class GraphTest {
         assertTrue(negativeCycle);
     }
 
+    // right answer for negative edges + cycles
     @Test
     void bellmanFord4() {
         Graph g = new Graph(filePath.concat("\\Test4.txt"));
@@ -170,6 +173,7 @@ class GraphTest {
         assertTrue(negativeCycle);
     }
 
+    // right answer for negative edges
     @Test
     void bellmanFord5() {
         Graph g = new Graph(filePath.concat("\\Test5.txt"));
@@ -180,6 +184,7 @@ class GraphTest {
         assertTrue(negativeCycle);
     }
 
+    // linked list + reach node with 0 cost
     @Test
     void bellmanFord6() {
         Graph g = new Graph(filePath.concat("\\Test6.txt"));
@@ -190,6 +195,7 @@ class GraphTest {
         assertTrue(negativeCycle);
     }
 
+    // linked list + self loop ( + , - ) - negative cycle
     @Test
     void bellmanFord7() {
         Graph g = new Graph(filePath.concat("\\Test7.txt"));
@@ -198,6 +204,7 @@ class GraphTest {
         assertFalse(negativeCycle);
     }
 
+    // different source node
     @Test
     void bellmanFord8() {
         Graph g = new Graph(filePath.concat("\\Test8.txt"));
@@ -208,6 +215,7 @@ class GraphTest {
         assertTrue(negativeCycle);
     }
 
+    // Test parent array
     @Test
     void bellmanFord9() {
         Graph g = new Graph(filePath.concat("\\Test3.txt"));
@@ -220,5 +228,94 @@ class GraphTest {
 
     // ----------------------BELLMAN-FORD TESTS----------------------------
 
+    // ----------------------FLOYD-WARSHALL TESTS----------------------------
+
+    // large graph with only positive edges - test cost
+    @Test
+    void floydWarshall1() {
+        Graph g = new Graph(filePath.concat("\\Test9.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        boolean negativeCycle = g.floyed_warshal(predecessors,cost);
+        int[][] result = {
+                {0,4,11,oo,13,7,9,oo},
+                {1,0,7,oo,9,3,5,oo},
+                {oo,oo,0,oo,2,9,oo,oo},
+                {10,9,16,0,18,8,11,3},
+                {oo,oo,1,oo,0,10,oo,oo},
+                {oo,oo,oo,oo,oo,0,oo,oo},
+                {oo,oo,8,oo,10,17,0,oo},
+                {oo,oo,16,oo,18,5,8,0}
+        };
+        assertArrayEquals( result, cost );
+        assertTrue(negativeCycle);
+    }
+
+    // large graph with only positive edges - test predecessors
+    @Test
+    void floydWarshall2() {
+        Graph g = new Graph(filePath.concat("\\Test9.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        boolean negativeCycle = g.floyed_warshal(predecessors,cost);
+        int[][] result = {
+                {-1, 0, 1, -1, 2, 1, 1, -1,},
+                {1, -1, 1, -1, 2, 1, 1, -1,},
+                {-1, -1, -1, -1, 2, 2, -1, -1},
+                {1, 3, 1, -1, 2, 3, 7, 3},
+                {-1,-1,4,-1,-1,2,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,6,-1,2,2,-1,-1},
+                {-1,-1,6,-1,2,7,7,-1}
+        };
+        assertArrayEquals( result, predecessors );
+        assertTrue(negativeCycle);
+    }
+
+    // graph contain negative edges
+    @Test
+    void floydWarshall3() {
+        Graph g = new Graph(filePath.concat("\\Test4.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        boolean negativeCycle = g.floyed_warshal(predecessors,cost);
+        int[][] result = {
+                {0,3,8,2,-4},
+                {3,0,11,1,-1},
+                {-3,0,0,-5,-7},
+                {2,5,10,0,-2},
+                {8,11,16,6,0}
+        };
+        assertArrayEquals( result, cost );
+        assertTrue(negativeCycle);
+    }
+
+    // graph contain negative cycle
+    @Test
+    void floydWarshall4() {
+        Graph g = new Graph(filePath.concat("\\Test7.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        boolean negativeCycle = g.floyed_warshal(predecessors,cost);
+        assertFalse(negativeCycle);
+    }
+
+    @Test
+    void floydWarshall5() {
+        Graph g = new Graph(filePath.concat("\\Test10.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        boolean negativeCycle = g.floyed_warshal(predecessors,cost);
+        int[][] result = {
+                {0,3,7,5},
+                {2,0,6,4},
+                {3,1,0,5},
+                {5,3,2,0}
+        };
+        assertArrayEquals( result, cost );
+        assertTrue(negativeCycle);
+    }
+
+    // ----------------------FLOYD-WARSHALL TESTS----------------------------
 
 }
