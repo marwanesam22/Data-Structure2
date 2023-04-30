@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+<<<<<<< HEAD
         Scanner input = new Scanner(System.in);
         Graph g = new Graph(input.nextLine());
         int[][] costs = new int[g.get_graph_size()][g.get_graph_size()];
@@ -47,5 +48,10 @@ public class Main {
 //    }
 
 //        C:\Users\Adel\Desktop\inputFile.txt
+=======
+        CLI cli = new CLI();
+        cli.CLI_runner();
+>>>>>>> 3aae9a6683a0886123c7bdec364ed3f711c999b6
     }
+//    C:\Users\Adel\Desktop\inputFile.txt
 }

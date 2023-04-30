@@ -11,13 +11,11 @@ public class Graph {
     final int oo = 1000000000;
     int V,E;
     int[][] costsMatrix;
-
     Graph(String path){
         graphInitializer(path);
     }
 
     private void graphInitializer(String inputFile){
-        System.out.println("Path is:" + inputFile);
         try {
             Scanner scanner = new Scanner(new File(inputFile));
             V = scanner.nextInt();
@@ -28,7 +26,6 @@ public class Graph {
             }
 
             E = scanner.nextInt();
-            System.out.println("V = " + V);
             costsMatrix= new int[V][V];
             for (int i = 0; i < E; i++) {
                 int start = scanner.nextInt();
@@ -46,17 +43,19 @@ public class Graph {
                     if(i != j && costsMatrix[i][j] == 0)costsMatrix[i][j] = oo;
                 }
             }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    int get_graph_size(){
+    int size(){
         return graph.size();
     }
 
     void apply_dijkstra(int source_node, int []costs, int []parent){
-        int vertices = get_graph_size();
+        System.out.println("Inside apply dij");
+        int vertices = size();
         boolean []visited = new boolean[vertices];
         /* first int in PQ is weight, second is node number */
         PriorityQueue<Pair> priorityQueue = new PriorityQueue<>();
@@ -81,33 +80,28 @@ public class Graph {
                         costs[neighbour_node] = costs[node] + weight;
                         parent[neighbour_node] = node;
                     }
+                    priorityQueue.offer(new Pair(costs[neighbour_node], neighbour_node));
                 }
-                priorityQueue.offer(new Pair(costs[neighbour_node], neighbour_node));
             }
         }
         System.out.println("finished DI");
+        System.out.println(Arrays.toString(costs));
     }
 
     public boolean floyed_warshal(int[][] predecessors, int[][] costs){
-        int[][] tmp = new int[predecessors.length][predecessors[0].length];
         for(int i = 0 ; i < predecessors.length ; i++){
             for(int j = 0 ; j < predecessors.length ; j++){
-                for(int k = 0 ; k < tmp[0].length ; k++){
-                    if(j == i || k == i)tmp[j][k] = predecessors[j][k];
+                for(int k = 0 ; k < costs[0].length ; k++){
+                    if(j == i || k == i)costs[j][k] = predecessors[j][k];
                     else{
-                        tmp[j][k] = Math.min(predecessors[j][k], (predecessors[j][i] + predecessors[i][k]));
+                        costs[j][k] = Math.min(predecessors[j][k], (predecessors[j][i] + predecessors[i][k]));
                     }
                 }
             }
-            predecessors = tmp;
+            predecessors = costs;
         }
-
-        for(int i = 0 ; i<costs.length ; i++){
-            for(int j = 0 ; j<costs.length ; j++){
-                costs[i][j] = predecessors[i][j];
-                if((i == j) && costs[i][j] < 0)return false;
-            }
-        }
+        System.out.println(Arrays.deepToString(predecessors));
+        System.out.println(Arrays.deepToString(costs));
         return true;
     }
 
@@ -140,7 +134,7 @@ public class Graph {
                 });
             }
         }
-
+        System.out.println(Arrays.toString(costs));
         //last iteration to check for negative loops
         //for each node
         for(int j = 0; j < n; j++){
