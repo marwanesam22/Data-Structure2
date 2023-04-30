@@ -84,24 +84,36 @@ public class Graph {
                 }
             }
         }
-        System.out.println("finished DI");
-        System.out.println(Arrays.toString(costs));
     }
 
     public boolean floyed_warshal(int[][] predecessors, int[][] costs){
-        for(int i = 0 ; i < predecessors.length ; i++){
-            for(int j = 0 ; j < predecessors.length ; j++){
-                for(int k = 0 ; k < costs[0].length ; k++){
-                    if(j == i || k == i)costs[j][k] = predecessors[j][k];
-                    else{
-                        costs[j][k] = Math.min(predecessors[j][k], (predecessors[j][i] + predecessors[i][k]));
+
+        for(int i = 0 ; i<V ;i ++){
+            for(int j = 0 ; j < V ; j++){
+                predecessors[i][j] = -1;
+                costs[i][j] = costsMatrix[i][j];
+                if(costs[i][j] != oo && costs[i][j] != 0){
+                    predecessors[i][j] = i;
+                }
+            }
+        }
+
+        for (int k = 0; k < V; k++) {
+            for (int i = 0; i < V; i++) {
+                for (int j = 0; j < V; j++) {
+                    if (costs[i][k] != oo && costs[k][j] != oo && costs[i][j] > costs[i][k] + costs[k][j]) {
+                        costs[i][j] = costs[i][k] + costs[k][j];
+                        predecessors[i][j] = predecessors[k][j];
                     }
                 }
             }
-            predecessors = costs;
         }
-        System.out.println(Arrays.deepToString(predecessors));
+
         System.out.println(Arrays.deepToString(costs));
+        System.out.println(Arrays.deepToString(predecessors));
+        for(int i = 0 ; i<V ; i++){
+            if(costs[i][i] < 0)return false;
+        }
         return true;
     }
 
