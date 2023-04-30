@@ -7,12 +7,12 @@ import java.sql.Array;
 import java.util.*;
 
 public class Graph {
-    Map<Integer, Map<Integer, Integer>> graph; /* first int for node number - second map <neighbourNode, weight> */
+
+    public Map<Integer, Map<Integer, Integer>> graph; /* first int for node number - second map <neighbourNode, weight> */
     final int oo = 1000000000;
     public int V,E;
     public int[][] costsMatrix;
-    public int[][] costFloyd;
-    public int[] costDijkstra;
+
     public Graph(String path){
         graphInitializer(path);
     }
@@ -86,10 +86,10 @@ public class Graph {
                 }
             }
         }
-        this.costDijkstra = costs;
         System.out.println("finished DI");
         System.out.println(Arrays.toString(costs));
-    }
+        System.out.println(Arrays.toString(parent));
+     }
 
     public boolean floyed_warshal(int[][] predecessors, int[][] costs){
         for(int i = 0 ; i < predecessors.length ; i++){
@@ -103,7 +103,6 @@ public class Graph {
             }
             predecessors = costs;
         }
-        this.costFloyd = predecessors;
         System.out.println(Arrays.deepToString(predecessors));
         System.out.println(Arrays.deepToString(costs));
         return true;
