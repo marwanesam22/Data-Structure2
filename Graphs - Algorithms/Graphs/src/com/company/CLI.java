@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class CLI {
@@ -58,7 +60,6 @@ public class CLI {
                     }
                 } else if (algo == 2) {
                     //bellman
-                    //TODO errornous bellman
                     int[] parents = new int[graph.size()];
                     int[] costs = new int[graph.size()];
                     graph.bfShortestPath(src,costs,parents);
@@ -88,10 +89,8 @@ public class CLI {
                 else{
                     //floyed
                     int[][] costs = new int[graph.size()][graph.size()];
-                    int[] parents = new int[graph.size()];
-                    int[] c = new int[graph.size()];
-                    graph.bfShortestPath(src,c,parents);
-                    graph.floyed_warshal(graph.costsMatrix, costs);
+                    int[][] predessesor = new int[graph.size()][graph.size()];
+                    graph.floyed_warshal(predessesor, costs);
                     while (true){
                         int subOption = print_subMenue("Floyed-Warshal");
                         if(subOption == 1 || subOption == 2){
@@ -105,11 +104,11 @@ public class CLI {
                                 System.out.println();
                             }else {
                                 System.out.print("The shortest path itself form node " + src + " to node " + dest + " is: ");
-                                System.out.print(getPath(parents,src,dest));
+                                System.out.print(getPath(predessesor[src],src,dest));
                                 System.out.println();
                             }
                         } else if (subOption == 3) {
-                           break;
+                            break;
                         } else{
                             System.out.println("invalid option please reselct the desired operation..");
                         }
@@ -155,19 +154,18 @@ public class CLI {
     }
 
     private String getPath(int[] parents, int src, int dest){
-        //TODO if the node has two digits
-        String path = "";
-        path += dest;
-        if(src == dest)return path;
+        ArrayList<String>path = new ArrayList<>();
+        path.add(String.valueOf(dest));
+        if(src == dest)return String.valueOf(src);
         int tmp = dest;
         while (parents[tmp] != src){
             tmp = parents[tmp];
-            path += tmp;
+            path.add(String.valueOf(tmp));
         }
-        path += src;
+        path.add(String.valueOf(src));
         String result = "";
-        for(int i = path.length()-1 ; i>=0; i--){
-            result += path.charAt(i);
+        for(int i = path.size()-1 ; i>=0; i--){
+            result += path.get(i);
             if(i != 0)result += " => ";
         }
         return result;
