@@ -31,93 +31,107 @@ public class CLI {
                 System.out.println();
                 src = check_validation_of_node(src);
                 int algo = specify_algorithm();
+                int[][] costs = new int[graph.size()][graph.size()];
+                int[][] predessesor = new int[graph.size()][graph.size()];
+                String algo_String;
                 if(algo == 1){
-                    //Dijkstra
-                    int[] parents = new int[graph.size()];
-                    int[] costs = new int[graph.size()];
-                    graph.apply_dijkstra(src,costs,parents);
-                    while (true){
-                        int subOption = print_subMenue("Dijkstra");
-                        if(subOption == 1 || subOption == 2){
-                            System.out.print("Enter the destination node please: ");
-                            int dest = scan.nextInt();
-                            System.out.println();
-                            dest = check_validation_of_node(dest);
-                            if(subOption == 1){
-                                System.out.print("The shortest path cost form node " + src + " to node " + dest + " is: ");
-                                System.out.print(costs[dest]);
-                                System.out.println();
-                            }else {
-                                System.out.print("The shortest path itself form node " + src + " to node " + dest + " is: ");
-                                System.out.print(getPath(parents,src,dest));
-                                System.out.println();
-                            }
-                        } else if (subOption == 3) {
-                            break;
-                        } else{
-                            System.out.println("invalid option please reselct the desired operation..");
-                        }
-                    }
+                    graph.apply_dijkstra(src,costs[src],predessesor[src]);
+                    algo_String = "Dijkstra";
                 } else if (algo == 2) {
-                    //bellman
-                    int[] parents = new int[graph.size()];
-                    int[] costs = new int[graph.size()];
-                    graph.bfShortestPath(src,costs,parents);
-                    while (true){
-                        int subOption = print_subMenue("Bellman-Ford");
-                        if(subOption == 1 || subOption == 2){
-                            System.out.print("Enter the destination node please: ");
-                            int dest = scan.nextInt();
-                            System.out.println();
-                            dest = check_validation_of_node(dest);
-                            if(subOption == 1){
-                                System.out.print("The shortest path cost form node " + src + " to node " + dest + " is: ");
-                                System.out.print(costs[dest]);
-                                System.out.println();
-                            }else {
-                                System.out.print("The shortest path itself form node " + src + " to node " + dest + " is: ");
-                                System.out.print(getPath(parents,src,dest));
-                                System.out.println();
-                            }
-                        } else if (subOption == 3) {
-                            break;
-                        } else{
-                            System.out.println("invalid option please reselct the desired operation..");
-                        }
-                    }
+                    graph.bfShortestPath(src,costs[src],predessesor[src]);
+                    algo_String = "Bellman-Ford";
                 }
                 else{
-                    //floyed
-                    int[][] costs = new int[graph.size()][graph.size()];
-                    int[][] predessesor = new int[graph.size()][graph.size()];
-                    graph.floyed_warshal(predessesor, costs);
-                    while (true){
-                        int subOption = print_subMenue("Floyed-Warshal");
-                        if(subOption == 1 || subOption == 2){
-                            System.out.print("Enter the destination node please: ");
-                            int dest = scan.nextInt();
+                    graph.floyed_warshal(predessesor,costs);
+                    algo_String = "Floyed-Warshal";
+                }
+
+                while (true){
+                    int subOption = print_subMenue(algo_String);
+                    if(subOption == 1 || subOption == 2){
+                        System.out.print("Enter the destination node please: ");
+                        int dest = scan.nextInt();
+                        System.out.println();
+                        dest = check_validation_of_node(dest);
+                        if(subOption == 1){
+                            System.out.print("The shortest path cost form node " + src + " to node " + dest + " is: ");
+                            System.out.print(costs[src][dest]);
                             System.out.println();
-                            dest = check_validation_of_node(dest);
-                            if(subOption == 1){
-                                System.out.print("The shortest path cost form node " + src + " to node " + dest + " is: ");
-                                System.out.print(costs[src][dest]);
-                                System.out.println();
-                            }else {
-                                System.out.print("The shortest path itself form node " + src + " to node " + dest + " is: ");
-                                System.out.print(getPath(predessesor[src],src,dest));
-                                System.out.println();
-                            }
-                        } else if (subOption == 3) {
-                            break;
-                        } else{
-                            System.out.println("invalid option please reselct the desired operation..");
+                        }else {
+                            System.out.print("The shortest path itself form node " + src + " to node " + dest + " is: ");
+                            System.out.print(getPath(predessesor[src],src,dest));
+                            System.out.println();
                         }
+                    } else if (subOption == 3) {
+                        break;
+                    } else{
+                        System.out.println("invalid option please reselct the desired operation..");
                     }
                 }
 
             } else if (option == 2) {
+                int algo = specify_algorithm();
+                int[][] costs = new int[graph.size()][graph.size()];
+                int[][] predessesor = new int[graph.size()][graph.size()];
+                String algo_String;
+                if(algo == 1){
+                    for(int i = 0 ; i<graph.V ; i++){
+                        graph.apply_dijkstra(i,costs[i],predessesor[i]);
+                    }
+                    algo_String = "Dijkstra";
+                } else if (algo == 2) {
+                    for(int i = 0 ; i<graph.V ; i++){
+                        graph.bfShortestPath(i,costs[i],predessesor[i]);
+                    }
+                    algo_String = "Bellman-Ford";
+                }
+                else{
+                    graph.floyed_warshal(predessesor,costs);
+                    algo_String = "Floyed-Warshal";
+                }
+                while (true){
+                    int subOption = print_subMenue2(algo_String);
+                    if(subOption == 1 || subOption == 2){
+                        System.out.print("Enter the source node please: ");
+                        int src = scan.nextInt();
+                        System.out.println();
+                        src = check_validation_of_node(src);
+                        System.out.print("Enter the destination node please: ");
+                        int dest = scan.nextInt();
+                        System.out.println();
+                        dest = check_validation_of_node(dest);
+                        if(subOption == 1){
+                            System.out.print("The shortest path cost form node " + src + " to node " + dest + " is: ");
+                            System.out.print(costs[src][dest]);
+                            System.out.println();
+                        }else {
+                            System.out.print("The shortest path itself form node " + src + " to node " + dest + " is: ");
+                            System.out.print(getPath(predessesor[src],src,dest));
+                            System.out.println();
+                        }
+                    } else if (subOption == 3) {
+                        break;
+                    } else{
+                        System.out.println("invalid option please reselct the desired operation..");
+                    }
+                }
 
             } else if (option == 3) {
+                int algo = print_subMenue3();
+                if(algo == 3)continue;
+                int[][] costs = new int[graph.size()][graph.size()];
+                int[][] predessesor = new int[graph.size()][graph.size()];
+                boolean ShotestPathExist = true;
+                if(algo == 1){
+                     ShotestPathExist = graph.bfShortestPath(0,costs[0],predessesor[0]);
+                } else if (algo == 2) {
+                    ShotestPathExist = graph.floyed_warshal(predessesor,costs);
+                }
+                if(ShotestPathExist){
+                    System.out.println("The given graph doesn't contain a negative cycle");
+                }else{
+                    System.out.println("The given graph contains a negative cycle");
+                }
 
             } else if (option == 4) {
                 break;
@@ -177,6 +191,30 @@ public class CLI {
         System.out.println("Please select the desired operation out of these two: ");
         System.out.println("1 : Find the shortest path to a specific node.");
         System.out.println("2 : Find the path itself to a specific node.");
+        System.out.println("3 : Return to the main menu.");
+        System.out.print("Option: ");
+        int subOption = scan.nextInt();
+        System.out.println();
+        return subOption;
+    }
+
+    private int print_subMenue2(String algorithm){
+        System.out.println("============================================================");
+        System.out.println("\t\t\t\t\t\tSub menu of " + algorithm);
+        System.out.println("Please select the desired operation out of these two: ");
+        System.out.println("1 : The cost of a path from a specific node to another one.");
+        System.out.println("2 : Find the path itself from a specific node to another one.");
+        System.out.println("3 : Return to the main menu.");
+        System.out.print("Option: ");
+        int subOption = scan.nextInt();
+        System.out.println();
+        return subOption;
+    }
+
+    private int print_subMenue3(){
+        System.out.println("Please select the algorithm to run: ");
+        System.out.println("1 : Bellman-Ford algorithm");
+        System.out.println("2 : Floyed-Warshal");
         System.out.println("3 : Return to the main menu.");
         System.out.print("Option: ");
         int subOption = scan.nextInt();

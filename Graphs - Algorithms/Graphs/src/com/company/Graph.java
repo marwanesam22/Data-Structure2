@@ -56,7 +56,6 @@ public class Graph {
     }
 
      public void apply_dijkstra(int source_node, int []costs, int []parent){
-        System.out.println("Inside apply dij");
         int vertices = size();
         boolean []visited = new boolean[vertices];
         /* first int in PQ is weight, second is node number */
@@ -85,7 +84,6 @@ public class Graph {
                     priorityQueue.offer(new Pair(costs[neighbour_node], neighbour_node));
                 }
             }
-            System.out.println(Arrays.toString(costs));
         }
      }
 
@@ -112,8 +110,6 @@ public class Graph {
             }
         }
 
-        System.out.println(Arrays.deepToString(costs));
-        System.out.println(Arrays.deepToString(predecessors));
         for(int i = 0 ; i<V ; i++){
             if(costs[i][i] < 0)return false;
         }
@@ -151,7 +147,6 @@ public class Graph {
                 });
             }
         }
-        System.out.println(Arrays.toString(costs));
         //last iteration to check for negative loops
         //for each node
         for(int j = 0; j < n; j++){
