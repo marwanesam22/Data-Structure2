@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GraphTest {
     final int oo = 1000000000;
     String filePath = new File("").getAbsolutePath().concat("\\src\\Test\\Test Files\\");
+    String timePath = new File("").getAbsolutePath().concat("\\src\\Test\\Test Files\\Time Test\\");
 
     // ----------------------SIZE TESTS----------------------------
 
@@ -317,5 +318,219 @@ class GraphTest {
     }
 
     // ----------------------FLOYD-WARSHALL TESTS----------------------------
+
+    // -------------------------Time TESTS----------------------------------
+
+    @Test
+    void dijkstra10_45() {
+        Graph g = new Graph(timePath.concat("\\graph1045.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.apply_dijkstra(0,cost,parent);
+    }
+    // 17 218
+    @Test
+    void bellman10_45() {
+        Graph g = new Graph(timePath.concat("\\graph1045.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.bfShortestPath(0,cost,parent);
+    }
+    @Test
+    void floyd10_45() {
+        Graph g = new Graph(timePath.concat("\\graph1045.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        g.floyed_warshal(predecessors,cost);
+    }
+
+    @Test
+    void dijkstra100_91() {
+        Graph g = new Graph(timePath.concat("\\graph10091.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.apply_dijkstra(0,cost,parent);
+    }
+    // 17 218
+    @Test
+    void bellman100_91() {
+        Graph g = new Graph(timePath.concat("\\graph10091.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.bfShortestPath(0,cost,parent);
+    }
+    @Test
+    void floyd100_91() {
+        Graph g = new Graph(timePath.concat("\\graph10091.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        g.floyed_warshal(predecessors,cost);
+    }
+
+    @Test
+    void dijkstra100_990() {
+        Graph g = new Graph(timePath.concat("\\graph100990.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.apply_dijkstra(0,cost,parent);
+    }
+    // 17 218
+    @Test
+    void bellman100_990() {
+        Graph g = new Graph(timePath.concat("\\graph100990.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.bfShortestPath(0,cost,parent);
+    }
+    @Test
+    void floyd100_990() {
+        Graph g = new Graph(timePath.concat("\\graph100990.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        g.floyed_warshal(predecessors,cost);
+    }
+
+    @Test
+    void dijkstra100_1980() {
+        Graph g = new Graph(timePath.concat("\\graph1001980.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.apply_dijkstra(0,cost,parent);
+    }
+    // 17 218
+    @Test
+    void bellman100_1980() {
+        Graph g = new Graph(timePath.concat("\\graph1001980.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.bfShortestPath(0,cost,parent);
+    }
+    @Test
+    void floyd100_1980() {
+        Graph g = new Graph(timePath.concat("\\graph1001980.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        g.floyed_warshal(predecessors,cost);
+    }
+    @Test
+    void dijkstra100_3960() {
+        Graph g = new Graph(timePath.concat("\\graph1003960.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.apply_dijkstra(0,cost,parent);
+    }
+    // 17 218
+    @Test
+    void bellman100_3960() {
+        Graph g = new Graph(timePath.concat("\\graph1003960.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.bfShortestPath(0,cost,parent);
+    }
+    @Test
+    void floyd100_3960() {
+        Graph g = new Graph(timePath.concat("\\graph1003960.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        g.floyed_warshal(predecessors,cost);
+    }
+    @Test
+    void dijkstra100_5015() {
+        Graph g = new Graph(timePath.concat("\\graph1005015.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.apply_dijkstra(0,cost,parent);
+    }
+    // 17 218
+    @Test
+    void bellman100_5015() {
+        Graph g = new Graph(timePath.concat("\\graph1005015.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.bfShortestPath(0,cost,parent);
+    }
+    @Test
+    void floyd100_5015() {
+        Graph g = new Graph(timePath.concat("\\graph1005015.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        g.floyed_warshal(predecessors,cost);
+    }
+    @Test
+    void dijkstra500_2495() {
+        Graph g = new Graph(timePath.concat("\\graph5002495.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.apply_dijkstra(0,cost,parent);
+    }
+    // 17 218
+    @Test
+    void bellman500_2495() {
+        Graph g = new Graph(timePath.concat("\\graph5002495.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.bfShortestPath(0,cost,parent);
+    }
+    @Test
+    void floyd500_2495() {
+        Graph g = new Graph(timePath.concat("\\graph5002495.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        g.floyed_warshal(predecessors,cost);
+    }
+    @Test
+    void dijkstra500_249500() {
+        Graph g = new Graph(timePath.concat("\\graph500249500.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.apply_dijkstra(0,cost,parent);
+    }
+    // 17 218
+    @Test
+    void bellman500_249500() {
+        Graph g = new Graph(timePath.concat("\\graph500249500.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.bfShortestPath(0,cost,parent);
+    }
+    @Test
+    void floyd500_249500() {
+        Graph g = new Graph(timePath.concat("\\graph500249500.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        g.floyed_warshal(predecessors,cost);
+    }
+    @Test
+    void dijkstra1000_99990() {
+        Graph g = new Graph(timePath.concat("\\graph100099990.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.apply_dijkstra(0,cost,parent);
+    }
+    // 17 218
+    @Test
+    void bellman1000_99990() {
+        Graph g = new Graph(timePath.concat("\\graph100099990.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.bfShortestPath(0,cost,parent);
+    }
+    @Test
+    void floyd1000_99990() {
+        Graph g = new Graph(timePath.concat("\\graph100099990.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        g.floyed_warshal(predecessors,cost);
+    }
+
+    @Test
+    void dijkstra1000_999000() {
+        Graph g = new Graph(timePath.concat("\\graph1000999000.txt"));
+        int[] cost = new int[g.size()],parent = new int[g.size()];
+        g.apply_dijkstra(0,cost,parent);
+    }
+    // 17 218
+//    @Test
+//    void bellman1000_999000() {
+//        Graph g = new Graph(timePath.concat("\\graph1000999000.txt"));
+//        int[] cost = new int[g.size()],parent = new int[g.size()];
+//        g.bfShortestPath(0,cost,parent);
+//    }
+    @Test
+    void floyd1000_999000() {
+        Graph g = new Graph(timePath.concat("\\graph1000999000.txt"));
+        int[][] cost = new int[g.size()][g.size()];
+        int[][] predecessors = new int[g.size()][g.size()];
+        g.floyed_warshal(predecessors,cost);
+    }
+
+
+
+    // -------------------------Time TESTS----------------------------------
+
+
+
 
 }
