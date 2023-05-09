@@ -132,7 +132,7 @@ public class Graph {
         costs[sourceNode] = 0;
         boolean shortestPathExists = true;
         //loop |E|-1 times
-        for(int i = 0; i < this.E-1; i++){
+        for(int i = 0; i < this.V-1; i++){
             //for each node
             for(int j = 0; j < n; j++){
                 final int node = j;

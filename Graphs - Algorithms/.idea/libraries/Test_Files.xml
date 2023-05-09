@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Test Files">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Graphs/out/production/Graphs/Test/Test Files/timetests.zip!/" />
+      <root url="jar://$PROJECT_DIR$/Graphs/out/production/Graphs/Test/Test Files/Test Files.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

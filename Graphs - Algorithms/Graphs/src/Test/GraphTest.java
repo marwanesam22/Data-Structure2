@@ -9,6 +9,11 @@ class GraphTest {
     final int oo = 1000000000;
     String filePath = new File("").getAbsolutePath().concat("\\src\\Test\\Test Files\\");
     String timePath = new File("").getAbsolutePath().concat("\\src\\Test\\Test Files\\Time Test\\");
+    String timePath005 = new File("").getAbsolutePath().concat("\\Graphs\\src\\Test\\Test Files\\time tests\\0.05\\");
+    String timePath01 = new File("").getAbsolutePath().concat("\\Graphs\\src\\Test\\Test Files\\time tests\\0.1\\");
+    String timePath02 = new File("").getAbsolutePath().concat("\\Graphs\\src\\Test\\Test Files\\time tests\\0.2\\");
+    String timePath05 = new File("").getAbsolutePath().concat("\\Graphs\\src\\Test\\Test Files\\time tests\\0.5\\");
+    String timePath08 = new File("").getAbsolutePath().concat("\\Graphs\\src\\Test\\Test Files\\time tests\\0.8\\");
 
     // ----------------------SIZE TESTS----------------------------
 
@@ -321,26 +326,39 @@ class GraphTest {
 
     // -------------------------Time TESTS----------------------------------
 
-    @Test
-    void dijkstra10_45() {
-        Graph g = new Graph(timePath.concat("\\graph1045.txt"));
-        int[] cost = new int[g.size()],parent = new int[g.size()];
-        g.apply_dijkstra(0,cost,parent);
-    }
-    // 17 218
-    @Test
-    void bellman10_45() {
-        Graph g = new Graph(timePath.concat("\\graph1045.txt"));
-        int[] cost = new int[g.size()],parent = new int[g.size()];
-        g.bfShortestPath(0,cost,parent);
-    }
-    @Test
-    void floyd10_45() {
-        Graph g = new Graph(timePath.concat("\\graph1045.txt"));
-        int[][] cost = new int[g.size()][g.size()];
-        int[][] predecessors = new int[g.size()][g.size()];
-        g.floyed_warshal(predecessors,cost);
-    }
+    //---------------------------DENSITY 0.05
+
+
+//    @Test
+//    void dijkstra100_005() {
+//        Graph g = new Graph(timePath01.concat("\\graph100-0.1.txt"));
+//        int[] cost = new int[g.size()],parent = new int[g.size()];
+//        double startTime = System.nanoTime();
+//        g.apply_dijkstra(0,cost,parent);
+//        double elapsedTimeMicros = (System.nanoTime() - startTime) / 1000;
+//        System.out.println("di100_0.05 : " + elapsedTimeMicros);
+//    }
+//
+//    @Test
+//    void bellman100_005() {
+//        Graph g = new Graph(timePath01.concat("\\graph100-0.1.txt"));
+//        int[] cost = new int[g.size()],parent = new int[g.size()];
+//        double startTime = System.nanoTime();
+//        g.bfShortestPath(0,cost,parent);
+//        double elapsedTimeMicros = (System.nanoTime() - startTime) / 1000;
+//        System.out.println("Bell100_0.05 : " + elapsedTimeMicros);
+//    }
+//
+//    @Test
+//    void floyd100_005() {
+//        Graph g = new Graph(timePath01.concat("\\graph100-0.1.txt"));
+//        int[][] cost = new int[g.size()][g.size()];
+//        int[][] predecessors = new int[g.size()][g.size()];
+//        double startTime = System.nanoTime();
+//        g.floyed_warshal(predecessors,cost);
+//        double elapsedTimeMicros = (System.nanoTime() - startTime) / 1000;
+//        System.out.println("flo100_0.05 : " + elapsedTimeMicros);
+//    }
 
     @Test
     void dijkstra100_91() {

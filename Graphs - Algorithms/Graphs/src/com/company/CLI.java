@@ -35,14 +35,22 @@ public class CLI {
                 int[][] predessesor = new int[graph.size()][graph.size()];
                 String algo_String;
                 if(algo == 1){
+                    double startTime = System.nanoTime();
                     graph.apply_dijkstra(src,costs[src],predessesor[src]);
+                    double elapsedTimeMicros = (System.nanoTime() - startTime) / 1000;
+                    System.out.println("di100_0.05 : " + elapsedTimeMicros);
                     algo_String = "Dijkstra";
                 } else if (algo == 2) {
                     graph.bfShortestPath(src,costs[src],predessesor[src]);
                     algo_String = "Bellman-Ford";
                 }
+                //E:\CSED25\2nd Year\Second term\Data Structures\Labs\Lab 2\Data-Structure2\Graphs - Algorithms\Graphs\src\Test\Test Files\time tests\0.1\graph1000-0.1.txt
                 else{
+                    double startTime = System.nanoTime();
                     graph.floyed_warshal(predessesor,costs);
+                    double elapsedTimeMicros = (System.nanoTime() - startTime) / 1000;
+                    System.out.println("di100_0.05 : " + elapsedTimeMicros);
+//                    graph.floyed_warshal(predessesor,costs);
                     algo_String = "Floyed-Warshal";
                 }
 
