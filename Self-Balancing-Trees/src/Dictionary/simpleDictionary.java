@@ -1,12 +1,12 @@
 package Dictionary;
+
 import AVLTree.*;
-import Main.*;
-import RBTree.*;
+import Main.IBalancedTree;
+import RBTree.RBTree;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class simpleDictionary {
     IBalancedTree<String> dictionary;
