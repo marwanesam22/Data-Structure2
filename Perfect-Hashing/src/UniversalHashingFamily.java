@@ -4,24 +4,25 @@ import java.util.Random;
 public class UniversalHashingFamily {
     private final int u; // max Key size (number of bits)
     private final int b; // Index size (number of bits) such that M = 2^b
-    public int[][] hashing_matrix; // Random matrix
+
 
     public UniversalHashingFamily(int u, int b) {
         this.u = u;
         this.b = b;
-        hashing_matrix = randomizingH(b, u);
+//        hashing_matrix = randomizingH(b, u);
     }
 
-    private int[][] randomizingH(int rows, int cols) {
-        int[][] matrix = new int[rows][cols];
+    public int[][] getrandomizedH() {
+        int[][] matrix = new int[b][u];
         Random random = new Random(); //instance of the Random class to get a random number each time
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        for (int i = 0; i < b; i++) {
+            for (int j = 0; j < u; j++) {
                 matrix[i][j] = random.nextInt(2); //to get a random number {0, 1}
             }
         }
         return matrix;
     }
+
 
     private int[] convertToBinary(int key, int maxNoOfBits) {
         int[] binaryNumber = new int[maxNoOfBits];
@@ -32,6 +33,7 @@ public class UniversalHashingFamily {
         return binaryNumber;
     }
 
+
     private int convertToDecimal(int[] binaryNumber) {
         int decimal = 0;
         for (int j : binaryNumber) {
@@ -40,7 +42,8 @@ public class UniversalHashingFamily {
         return decimal;
     }
 
-    public int HF(int x) {
+
+    public int HF(int x,int[][] hashing_matrix) {
         int[] binaryX = convertToBinary(x, u);
         int[] hx = new int[b];
         for (int i = 0; i < b; i++) {
