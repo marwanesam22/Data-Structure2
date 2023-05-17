@@ -13,6 +13,7 @@ public class UniversalHashingFamily {
     }
 
     public int[][] getrandomizedH() {
+        System.out.println("b = " + b + " u = " + u);
         int[][] matrix = new int[b][u];
         Random random = new Random(); //instance of the Random class to get a random number each time
         for (int i = 0; i < b; i++) {
