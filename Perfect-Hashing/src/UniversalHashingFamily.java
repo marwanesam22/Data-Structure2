@@ -9,7 +9,6 @@ public class UniversalHashingFamily {
     public UniversalHashingFamily(int u, int b) {
         this.u = u;
         this.b = b;
-//        hashing_matrix = randomizingH(b, u);
     }
 
     public int[][] getrandomizedH() {
