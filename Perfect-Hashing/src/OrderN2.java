@@ -8,7 +8,7 @@ public class OrderN2 extends PerfectHashing {
 
     public OrderN2(int length) {
         tableLength = length * length;
-        universalHashingFamily = new UniversalHashingFamily(32, get_b());
+        universalHashingFamily = new UniversalHashingFamily(32, get_b(tableLength));
         hashing_matrix = universalHashingFamily.getrandomizedH();
         hashTable = new Integer[tableLength];
         numberOfCollision = 0;
@@ -23,49 +23,19 @@ public class OrderN2 extends PerfectHashing {
         }else{
             //so there's a collision here we rehash again
             numberOfCollision++;
-            reHash(key);
+            numberOfCollision += reHash(key, this.hashTable, tableLength);
         }
         return true;
     }
 
     public int[] batchInsert(Integer[] keys){
-        int[] failsnSuccesses = new int[2];
-        Arrays.fill(failsnSuccesses,0);
+        int[] fails_and_success = new int[2];
+        Arrays.fill(fails_and_success,0);
         for(int key : keys){
-            if(insert(key))failsnSuccesses[0]++;
-            else failsnSuccesses[1]++;
+            if(insert(key))fails_and_success[0]++;
+            else fails_and_success[1]++;
         }
-        return failsnSuccesses;
-    }
-
-    private void reHash(int keyToBeInserted){
-        boolean collision = true;
-        Integer[] previousTable = hashTable;
-        // To find the first free spot in the table to add keyToBeInserted
-        for(int i=0; i<tableLength; i++){
-            if(previousTable[i] == null){
-                previousTable[i] = keyToBeInserted;
-                break;
-            }
-        }
-
-        while(collision){
-            collision = false;
-            hashTable = new Integer[tableLength];
-            hashing_matrix = universalHashingFamily.getrandomizedH();
-            for(Integer element: previousTable){
-                if(element != null){
-                    int index = universalHashingFamily.HF(element, hashing_matrix);
-                    if(hashTable[index] == element || hashTable[index] == null){
-                        hashTable[index] = element;
-                    }else{
-                        numberOfCollision++;
-                        collision = true;
-                        break;
-                    }
-                }
-            }
-        }
+        return fails_and_success;
     }
 
     public boolean delete(int key){
