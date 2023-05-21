@@ -1,15 +1,15 @@
 package UniversalPerfectHashing;
 
 public interface IPerfectHashing {
-    boolean insert(int var1);
+    boolean insert(String word);
 
-    boolean delete(int var1);
+    boolean delete(String word);
 
-    boolean search(int var1);
+    boolean search(String word);
 
-    int[] batchInsert(int[] var1);
+    int[] batchInsert(String[] words);
 
-    int[] batchDelete(int[] var1);
+    int[] batchDelete(String[] words);
 
     int printHTable();
 }

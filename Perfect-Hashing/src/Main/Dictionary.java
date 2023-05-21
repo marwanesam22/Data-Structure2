@@ -22,23 +22,25 @@ public class Dictionary {
     }
 
     public void insert(String word){
-        if(perfectHashing.insert(word.hashCode())){
+        if(perfectHashing.insert(word)){
             System.out.println(  "=> "+ "\"" + word + "\"" + " has been inserted successfully in the dictionary");
         }else{
             System.out.println("=> "+ "\"" + word + "\"" + " already exists in the dictionary");
         }
+        perfectHashing.printHTable();
     }
 
     public void delete(String word){
-        if(perfectHashing.delete(word.hashCode())){
+        if(perfectHashing.delete(word)){
             System.out.println("=> "+ "\"" + word + "\"" + " has been deleted successfully from the dictionary");
         }else{
             System.out.println("=> "+ "\"" + word + "\"" + " doesn't exist in the dictionary");
         }
+        perfectHashing.printHTable();
     }
 
     public void search(String word){
-        if(perfectHashing.search(word.hashCode())){
+        if(perfectHashing.search(word)){
             System.out.println("=> "+ "\"" + word + "\"" + " is in the dictionary");
         }else{
             System.out.println("=> "+ "\"" + word + "\"" + " does not exist in the dictionary");
@@ -46,41 +48,40 @@ public class Dictionary {
     }
 
     public void batchInsert(String filePath){
-        ArrayList<Integer> keys = new ArrayList<>();
+        ArrayList<String> words = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String word;
             while ((word = reader.readLine()) != null) {
-                keys.add(word.hashCode());
+                words.add(word);
             }
         } catch (IOException e) {
             System.out.println("Please enter a valid file path");
         }
 
+        String[] keyArray = new String[words.size()];
+        for(int i=0;i<keyArray.length;i++) keyArray[i] = words.get(i);
 
-//        for(int i=0;i<keyArray.length;i++) keyArray[i] = keys.get(i);
-//
-//
-//        int[] nSuccessesAndFails = perfectHashing.batchInsert(keyArray);
-//        System.out.println("=> "+ "The number of newly added words = " + nSuccessesAndFails[0] + " words");
-//        System.out.println("=> "+ "The number of already existing words = " + nSuccessesAndFails[1] + " words");
+        int[] nSuccessesAndFails = perfectHashing.batchInsert(keyArray);
+        System.out.println("=> "+ "The number of newly added words = " + nSuccessesAndFails[0] + " words");
+        System.out.println("=> "+ "The number of already existing words = " + nSuccessesAndFails[1] + " words");
     }
 
     public void batchDelete(String filePath){
-        ArrayList<Integer> keys = new ArrayList<>();
+        ArrayList<String> keys = new ArrayList<>();
         int nSuccesses = 0, nFails = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String word;
             while ((word = reader.readLine()) != null) {
-                keys.add(word.hashCode());
+                keys.add(word);
             }
         } catch (IOException e) {
             System.out.println("Please enter a valid file path");
         }
-        int[] keyArray = new int[keys.size()];
+        String[] keyArray = new String[keys.size()];
         for(int i=0;i<keyArray.length;i++) keyArray[i] = keys.get(i);
         int[] nSuccessAndFails = perfectHashing.batchDelete(keyArray);
-        System.out.println("=> "+ "The number of successfully deleted words = " + nSuccesses + " words");
-        System.out.println("=> "+ "The number of non existing words = " + nFails + " words");
+        System.out.println("=> "+ "The number of successfully deleted words = " + nSuccessAndFails[0] + " words");
+        System.out.println("=> "+ "The number of non existing words = " + nSuccessAndFails[1] + " words");
     }
 
 }

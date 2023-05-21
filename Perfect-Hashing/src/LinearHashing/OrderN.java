@@ -9,34 +9,35 @@ import java.util.Objects;
 
 public class OrderN extends PerfectHashing implements IPerfectHashing {
 
-    private ArrayList<Integer>[] collisions;
+    private ArrayList<String>[] collisions;
     private Order_N_Node[] hashTable;
+    int inserted = 0;
 
     public OrderN(int length) {
         hashTable = new Order_N_Node[length];
         collisions = new ArrayList[length];
         for(int i=0;i<length;i++) {
-            collisions[i] = new ArrayList<Integer>();
+            collisions[i] = new ArrayList<String>();
         }
         for(int i=0;i<length;i++) {
             hashTable[i] = new Order_N_Node();
             hashTable[i].universalObject = new UniversalHashingFamily(32,get_b(1));
             hashTable[i].hash_function = hashTable[i].universalObject.getrandomizedH();
-            hashTable[i].elements = new Integer[1];
+            hashTable[i].elements = new String[1];
         }
         universalHashingFamily = new UniversalHashingFamily(32, get_b(length));
         hashing_matrix = universalHashingFamily.getrandomizedH();
     }
 
-    public boolean insert(int key) {
+    public boolean insert(String key) {
         if(search(key))
             return false;
 
-        int index_in_first_level = universalHashingFamily.HF(key, hashing_matrix);
+        int index_in_first_level = universalHashingFamily.HF(key.hashCode(), hashing_matrix);
         Order_N_Node node = hashTable[index_in_first_level];
         collisions[index_in_first_level].add(key);
 
-        int index_in_second_level = node.universalObject.HF(key, node.hash_function);
+        int index_in_second_level = node.universalObject.HF(key.hashCode(), node.hash_function);
         if(node.elements[index_in_second_level] == null){
             node.elements[index_in_second_level] = key;
         } else {
@@ -45,47 +46,50 @@ public class OrderN extends PerfectHashing implements IPerfectHashing {
         return true;
     }
 
-    public int[] batchInsert(int[] arr) {
-       firstLevelHashing(arr);
-        int inserted = 0;
+    public int[] batchInsert(String[] arr) {
+        firstLevelHashing(arr);
+        int before_insert = inserted;
+        inserted = 0;
         for(int i=0;i<hashTable.length;i++) {
             Order_N_Node node = hashTable[i];
             if (collisions[i].size() > 0) {
                 inserted += node.hashing(collisions[i]);
+
             }
         }
-        return new int[]{inserted,arr.length - inserted};
+        int diff = inserted -  before_insert;
+        return new int[]{diff, arr.length - diff};
     }
 
-    public int[] batchDelete(int[] arr) {
+    public int[] batchDelete(String[] arr) {
         int deleted = 0;
-        for(int val : arr) {
+        for(String val : arr) {
             if(delete(val)) deleted++;
         }
         return new int[]{deleted, arr.length - deleted};
     }
 
-    public boolean delete(int key) {
+    public boolean delete(String key) {
         if(!search(key))
             return false;
-        int index = universalHashingFamily.HF(key, hashing_matrix);
+        int index = universalHashingFamily.HF(key.hashCode(), hashing_matrix);
         Order_N_Node node = hashTable[index];
-        int index_in_second_level = node.universalObject.HF(key, node.hash_function);
+        int index_in_second_level = node.universalObject.HF(key.hashCode(), node.hash_function);
         node.elements[index_in_second_level] = null;
         return true;
     }
 
-    public boolean search(int key) {
-        int index = universalHashingFamily.HF(key, hashing_matrix);
+    public boolean search(String key) {
+        int index = universalHashingFamily.HF(key.hashCode(), hashing_matrix);
         Order_N_Node node = hashTable[index];
-        int index_in_second_level = node.universalObject.HF(key, node.hash_function);
-        return Objects.equals(node.elements[index_in_second_level], (Integer) key);
+        int index_in_second_level = node.universalObject.HF(key.hashCode(), node.hash_function);
+        return (node.elements[index_in_second_level] != null && node.elements[index_in_second_level].equals(key));
     }
 
     public int printHTable() {
         int count = 0;
         for (Order_N_Node node : hashTable) {
-            for(Integer val : node.elements) {
+            for(String val : node.elements) {
                 if (val != null) count++;
             }
         }
@@ -95,17 +99,17 @@ public class OrderN extends PerfectHashing implements IPerfectHashing {
             sz += node.size;
         }
         int x = 0;
-        for(ArrayList<Integer> a: collisions) {
+        for(ArrayList<String> a: collisions) {
             if(a.size() > 0) x++;
         }
         System.out.println("collisions = " +  ma / x);
-        System.out.println("tableSize = " + ( sz + hashTable.length));
+        System.out.println("tables_Sizes = " + ( sz + hashTable.length));
         return count;
     }
 
-    private void firstLevelHashing(int[] arr) {
-        for(int value : arr) {
-            int index = universalHashingFamily.HF(value, hashing_matrix);
+    private void firstLevelHashing(String[] arr) {
+        for(String value : arr) {
+            int index = universalHashingFamily.HF(value.hashCode(), hashing_matrix);
             index %= hashTable.length;
             collisions[index].add(value);
         }
