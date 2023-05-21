@@ -10,7 +10,7 @@ public class PerfectHashing {
     }
 
     protected int get_b(int tableLength) {
-        System.out.println();
+//        System.out.println();
         return (int) (Math.floor(Math.log(tableLength) / Math.log(2)));
     }
 

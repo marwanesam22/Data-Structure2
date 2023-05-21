@@ -1,13 +1,14 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class OrderN2 extends PerfectHashing {
+public class OrderN2 extends PerfectHashing implements IPerfectHashing{
     public Integer[] hashTable;
 
     public int numberOfCollision;
 
     public OrderN2(int length) {
-        tableLength = length * length;
+        tableLength = Integer.highestOneBit(length * length - 1) << 1;//to get the nearest power of two larger than or equal to len * len
+        //TODO the same thing for O(N)
         universalHashingFamily = new UniversalHashingFamily(32, get_b(tableLength));
         hashing_matrix = universalHashingFamily.getrandomizedH();
         hashTable = new Integer[tableLength];
@@ -28,7 +29,7 @@ public class OrderN2 extends PerfectHashing {
         return true;
     }
 
-    public int[] batchInsert(Integer[] keys){
+    public int[] batchInsert(int[] keys){
         int[] fails_and_success = new int[2];
         Arrays.fill(fails_and_success,0);
         for(int key : keys){
@@ -45,7 +46,7 @@ public class OrderN2 extends PerfectHashing {
         return true;
     }
 
-    public int[] batchDelete(Integer[] keys){
+    public int[] batchDelete(int[] keys){
         int[] failsnSuccesses = new int[2];
         Arrays.fill(failsnSuccesses,0);
         for(int key : keys){
