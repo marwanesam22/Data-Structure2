@@ -5,15 +5,26 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) {
-        CLI cli = new CLI();
-        cli.start();
-//        Generation generation = new Generation();
-//        Integer []arr = generation.generateDistinctArray(1024);
+//        CLI cli = new CLI();
+//        cli.start();
+        Generation generation = new Generation();
+        Integer []arr = generation.generateDistinctArray(1000000);
 ////        Integer[] arr = {1, 5};
-//        OrderN orderN = new OrderN(arr.length);
+        OrderN orderN = new OrderN(arr.length);
 ////        for(int i : arr) {
 ////            orderN.insert(i);
 ////        }
+        int[] arrr = new int[arr.length];
+        for(int i=0;i<arr.length;i++) arrr[i] = (int)arr[i];
+//        for(int a : arrr) {
+//            orderN.insert(a);
+//        }
+        orderN.batchInsert(arrr);
+        orderN.insert(2);
+        boolean a = orderN.search(2);
+        if(a) System.out.println("found");
+        int x = orderN.printHTable();
+        System.out.println("test " + x);
 //        System.out.println(Arrays.toString(arr));
 //        ArrayList<Integer> list = new ArrayList<>();
 //        for(int i : arr) list.add(i);
