@@ -25,7 +25,7 @@ public class Order_N_Node {
         int n = collisions.size() * collisions.size();
         if(n == 1) n = 2;
         boolean collision = true;
-        System.out.println("nnnnnnnnnn: " + n);
+//        System.out.println("nnnnnnnnnn: " + n);
         universalObject = new UniversalHashingFamily(32, n);
         while (collision) {
             inserted = 0;
@@ -35,13 +35,13 @@ public class Order_N_Node {
             hash_function = universalObject.getrandomizedH();
             for (String val : collisions) {
                 int index = universalObject.computeHash(val, hash_function);
-                if(index >= size){
-                    System.out.println("Problem");
-                    System.out.println("size of hash table = " + universalObject.b);
-                    System.out.println("rows = " + hash_function.length);
-                    System.out.println("Index = " + index);
-                    System.out.println("size = " + size);
-                }
+//                if(index >= size){
+//                    System.out.println("Problem");
+//                    System.out.println("size of hash table = " + universalObject.b);
+//                    System.out.println("rows = " + hash_function.length);
+//                    System.out.println("Index = " + index);
+//                    System.out.println("size = " + size);
+//                }
 //                index %= size;
                 if (elements[index] == null) {
                     inserted++;

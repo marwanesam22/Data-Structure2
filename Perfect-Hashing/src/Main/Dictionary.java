@@ -13,7 +13,22 @@ import java.util.ArrayList;
 public class Dictionary {
 
     IPerfectHashing perfectHashing;
+
+    private final int type;
+    private int size;
+
+    public int getType() {
+        return type;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+
     public Dictionary(int dictionaryType, int size){
+        this.type = dictionaryType;
+        this.size = size;
         if(dictionaryType == 1){
             perfectHashing = new OrderN2(size);
         }else{
@@ -82,6 +97,15 @@ public class Dictionary {
         int[] nSuccessAndFails = perfectHashing.batchDelete(keyArray);
         System.out.println("=> "+ "The number of successfully deleted words = " + nSuccessAndFails[0] + " words");
         System.out.println("=> "+ "The number of non existing words = " + nSuccessAndFails[1] + " words");
+    }
+
+    public void getData(){
+        if(this.type == 2){
+            perfectHashing.printHTable();
+        }else{
+            System.out.println("Number of collisions = "+((OrderN2)perfectHashing).getNumberOfCollisions());
+            System.out.println("Size = " + this.size*this.size);
+        }
     }
 
 }
