@@ -5,21 +5,23 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) {
-        Generation generation = new Generation();
-        Integer []arr = generation.generateDistinctArray(1024);
-//        Integer[] arr = {1, 5};
-        OrderN orderN = new OrderN(arr.length);
-//        for(int i : arr) {
-//            orderN.insert(i);
-//        }
-        System.out.println(Arrays.toString(arr));
-        ArrayList<Integer> list = new ArrayList<>();
-        for(int i : arr) list.add(i);
-        orderN.hashing(list);
-//        orderN2.delete(5);
-//        orderN.printTable();
-        System.out.println();
-        orderN.rehashingNum();
+        CLI cli = new CLI();
+        cli.start();
+//        Generation generation = new Generation();
+//        Integer []arr = generation.generateDistinctArray(1024);
+////        Integer[] arr = {1, 5};
+//        OrderN orderN = new OrderN(arr.length);
+////        for(int i : arr) {
+////            orderN.insert(i);
+////        }
+//        System.out.println(Arrays.toString(arr));
+//        ArrayList<Integer> list = new ArrayList<>();
+//        for(int i : arr) list.add(i);
+//        orderN.hashing(list);
+////        orderN2.delete(5);
+////        orderN.printTable();
+//        System.out.println();
+//        orderN.rehashingNum();
 
 //        System.out.println("collision = " + orderN.rehashingNum(););
 
