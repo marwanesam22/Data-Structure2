@@ -21,19 +21,28 @@ public class Order_N_Node {
     public int hashing(ArrayList<String> collisions) {
         numOfCollisions = 0;
         int inserted = 0;
-//        collisions = removeDuplicates(collisions);
+        collisions = removeDuplicates(collisions);
         int n = collisions.size() * collisions.size();
+        if(n == 1) n = 2;
         boolean collision = true;
-        universalObject = new UniversalHashingFamily(32, get_b(n));
+        System.out.println("nnnnnnnnnn: " + n);
+        universalObject = new UniversalHashingFamily(32, n);
         while (collision) {
             inserted = 0;
             collision = false;
-            elements = new String[n];
-            size = n;
+            size = Integer.highestOneBit((n - 1) << 1);
+            elements = new String[size];
             hash_function = universalObject.getrandomizedH();
             for (String val : collisions) {
-                int index = universalObject.HF(val.hashCode(), hash_function);
-                index %= size;
+                int index = universalObject.computeHash(val, hash_function);
+                if(index >= size){
+                    System.out.println("Problem");
+                    System.out.println("size of hash table = " + universalObject.b);
+                    System.out.println("rows = " + hash_function.length);
+                    System.out.println("Index = " + index);
+                    System.out.println("size = " + size);
+                }
+//                index %= size;
                 if (elements[index] == null) {
                     inserted++;
                     elements[index] = val;

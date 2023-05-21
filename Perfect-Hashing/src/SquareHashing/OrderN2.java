@@ -12,15 +12,16 @@ public class OrderN2 extends PerfectHashing implements IPerfectHashing {
     public int numberOfCollision;
 
     public OrderN2(int length) {
-        tableLength = Integer.highestOneBit(length * length - 1) << 1;//to get the nearest power of two larger than or equal to len * len
-        universalHashingFamily = new UniversalHashingFamily(32, get_b(tableLength));
+        tableLength = Integer.highestOneBit(length * length - 1 << 1) ;//to get the nearest power of two larger than or equal to len * len
+        System.out.println(tableLength);
+        universalHashingFamily = new UniversalHashingFamily(32, tableLength);
         hashing_matrix = universalHashingFamily.getrandomizedH();
         hashTable = new String[tableLength];
         numberOfCollision = 0;
     }
 
     public boolean insert(String key){
-        int index = universalHashingFamily.HF(key.hashCode(), hashing_matrix);
+        int index = universalHashingFamily.computeHash(key, hashing_matrix);
         if(hashTable[index] == null){
             hashTable[index] = key;
         }else if(hashTable[index].equals(key)){
@@ -45,7 +46,7 @@ public class OrderN2 extends PerfectHashing implements IPerfectHashing {
 
     public boolean delete(String key){
         if(!search(key))return false;
-        int index = universalHashingFamily.HF(key.hashCode(), hashing_matrix);
+        int index = universalHashingFamily.computeHash(key, hashing_matrix);
         hashTable[index] = null;
         return true;
     }
@@ -61,7 +62,7 @@ public class OrderN2 extends PerfectHashing implements IPerfectHashing {
     }
 
     public boolean search(String key){
-        int index = universalHashingFamily.HF(key.hashCode(), hashing_matrix);
+        int index = universalHashingFamily.computeHash(key, hashing_matrix);
         return (hashTable[index] != null && hashTable[index].equals(key));
     }
 
@@ -94,15 +95,19 @@ public class OrderN2 extends PerfectHashing implements IPerfectHashing {
         }
 
         while(collision){
+
             collision = false;
             hashTable = new String[tableLength];
+            universalHashingFamily = new UniversalHashingFamily(32, tableLength);
             hashing_matrix = universalHashingFamily.getrandomizedH();
+
             for(String element: previousTable){
                 if(element != null){
-                    int index = universalHashingFamily.HF(element.hashCode(), hashing_matrix);
+                    int index = universalHashingFamily.computeHash(element, hashing_matrix);
                     if(hashTable[index] == null || hashTable[index].equals(element)){
                         hashTable[index] = element;
                     }else{
+                        System.out.println("element = " + element);
                         numberOfCollision++;
                         collision = true;
                         break;
@@ -110,6 +115,26 @@ public class OrderN2 extends PerfectHashing implements IPerfectHashing {
                 }
             }
         }
+//        collision = true;
+//        while(collision){
+//
+//            collision = false;
+//            hashTable = new String[tableLength];
+//            universalHashingFamily = new UniversalHashingFamily(32, tableLength);
+//            hashing_matrix = universalHashingFamily.getrandomizedH();
+//            int index = universalHashingFamily.computeHash(coll, hashing_matrix);
+//            System.out.println("Indexxxxxx = " + index);
+//            if(hashTable[index] == null || hashTable[index].equals(coll)){
+//                hashTable[index] = coll;
+//            }else{
+//                ;
+//                numberOfCollision++;
+//                collision = true;
+//                break;
+//            }
+//
+//        }
+
     }
 
 }

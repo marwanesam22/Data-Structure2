@@ -5,6 +5,7 @@ import UniversalPerfectHashing.PerfectHashing;
 import UniversalPerfectHashing.UniversalHashingFamily;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class OrderN extends PerfectHashing implements IPerfectHashing {
@@ -14,6 +15,7 @@ public class OrderN extends PerfectHashing implements IPerfectHashing {
     int inserted = 0;
 
     public OrderN(int length) {
+        length =  Integer.highestOneBit((length - 1) << 1);
         hashTable = new Order_N_Node[length];
         collisions = new ArrayList[length];
         for(int i=0;i<length;i++) {
@@ -21,11 +23,11 @@ public class OrderN extends PerfectHashing implements IPerfectHashing {
         }
         for(int i=0;i<length;i++) {
             hashTable[i] = new Order_N_Node();
-            hashTable[i].universalObject = new UniversalHashingFamily(32,get_b(1));
+            hashTable[i].universalObject = new UniversalHashingFamily(32,2);
             hashTable[i].hash_function = hashTable[i].universalObject.getrandomizedH();
-            hashTable[i].elements = new String[1];
+            hashTable[i].elements = new String[2];
         }
-        universalHashingFamily = new UniversalHashingFamily(32, get_b(length));
+        universalHashingFamily = new UniversalHashingFamily(32, length);
         hashing_matrix = universalHashingFamily.getrandomizedH();
     }
 
@@ -33,11 +35,11 @@ public class OrderN extends PerfectHashing implements IPerfectHashing {
         if(search(key))
             return false;
 
-        int index_in_first_level = universalHashingFamily.HF(key.hashCode(), hashing_matrix);
+        int index_in_first_level = universalHashingFamily.computeHash(key, hashing_matrix);
         Order_N_Node node = hashTable[index_in_first_level];
         collisions[index_in_first_level].add(key);
 
-        int index_in_second_level = node.universalObject.HF(key.hashCode(), node.hash_function);
+        int index_in_second_level = node.universalObject.computeHash(key, node.hash_function);
         if(node.elements[index_in_second_level] == null){
             node.elements[index_in_second_level] = key;
         } else {
@@ -72,17 +74,17 @@ public class OrderN extends PerfectHashing implements IPerfectHashing {
     public boolean delete(String key) {
         if(!search(key))
             return false;
-        int index = universalHashingFamily.HF(key.hashCode(), hashing_matrix);
+        int index = universalHashingFamily.computeHash(key, hashing_matrix);
         Order_N_Node node = hashTable[index];
-        int index_in_second_level = node.universalObject.HF(key.hashCode(), node.hash_function);
+        int index_in_second_level = node.universalObject.computeHash(key, node.hash_function);
         node.elements[index_in_second_level] = null;
         return true;
     }
 
     public boolean search(String key) {
-        int index = universalHashingFamily.HF(key.hashCode(), hashing_matrix);
+        int index = universalHashingFamily.computeHash(key, hashing_matrix);
         Order_N_Node node = hashTable[index];
-        int index_in_second_level = node.universalObject.HF(key.hashCode(), node.hash_function);
+        int index_in_second_level = node.universalObject.computeHash(key, node.hash_function);
         return (node.elements[index_in_second_level] != null && node.elements[index_in_second_level].equals(key));
     }
 
@@ -109,7 +111,7 @@ public class OrderN extends PerfectHashing implements IPerfectHashing {
 
     private void firstLevelHashing(String[] arr) {
         for(String value : arr) {
-            int index = universalHashingFamily.HF(value.hashCode(), hashing_matrix);
+            int index = universalHashingFamily.computeHash(value, hashing_matrix);
             index %= hashTable.length;
             collisions[index].add(value);
         }
