@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GraphTest {
     final int oo = 1000000000;
-    String filePath = new File("").getAbsolutePath().concat("\\Graphs\\src\\Test\\Test Files\\");
+    String filePath = new File("").getAbsolutePath().concat("\\src\\Test\\Test Files\\");
     String timePath = new File("").getAbsolutePath().concat("\\src\\Test\\Test Files\\Time Test\\");
-    String timePath005 = new File("").getAbsolutePath().concat("\\Graphs\\src\\Test\\Test Files\\time tests\\0.05\\");
+    String timePath005 = new File("").getAbsolutePath().concat("\\src\\Test\\Test Files\\time tests\\0.05\\");
     String timePath01 = new File("").getAbsolutePath().concat("\\Graphs\\src\\Test\\Test Files\\time tests\\0.1\\");
     String timePath02 = new File("").getAbsolutePath().concat("\\Graphs\\src\\Test\\Test Files\\time tests\\0.2\\");
     String timePath05 = new File("").getAbsolutePath().concat("\\Graphs\\src\\Test\\Test Files\\time tests\\0.5\\");
@@ -363,20 +363,20 @@ class GraphTest {
 //
 //    @Test
 //    void dijkstra100_91() {
-//        Graph g = new Graph(timePath.concat("\\graph10091.txt"));
+//        Graph g = new Graph(timePath.concat("\\graph2.txt"));
 //        int[] cost = new int[g.size()],parent = new int[g.size()];
 //        g.apply_dijkstra(0,cost,parent);
 //    }
 //    // 17 218
 //    @Test
 //    void bellman100_91() {
-//        Graph g = new Graph(timePath.concat("\\graph10091.txt"));
+//        Graph g = new Graph(timePath.concat("\\graph2.txt"));
 //        int[] cost = new int[g.size()],parent = new int[g.size()];
 //        g.bfShortestPath(0,cost,parent);
 //    }
 //    @Test
 //    void floyd100_91() {
-//        Graph g = new Graph(timePath.concat("\\graph10091.txt"));
+//        Graph g = new Graph(timePath.concat("\\graph2.txt"));
 //        int[][] cost = new int[g.size()][g.size()];
 //        int[][] predecessors = new int[g.size()][g.size()];
 //        g.floyed_warshal(predecessors,cost);
@@ -384,20 +384,20 @@ class GraphTest {
 //
 //    @Test
 //    void dijkstra100_990() {
-//        Graph g = new Graph(timePath.concat("\\graph100990.txt"));
+//        Graph g = new Graph(timePath.concat("\\graph3.txt"));
 //        int[] cost = new int[g.size()],parent = new int[g.size()];
 //        g.apply_dijkstra(0,cost,parent);
 //    }
 //    // 17 218
 //    @Test
 //    void bellman100_990() {
-//        Graph g = new Graph(timePath.concat("\\graph100990.txt"));
+//        Graph g = new Graph(timePath.concat("\\graph3.txt"));
 //        int[] cost = new int[g.size()],parent = new int[g.size()];
 //        g.bfShortestPath(0,cost,parent);
 //    }
 //    @Test
 //    void floyd100_990() {
-//        Graph g = new Graph(timePath.concat("\\graph100990.txt"));
+//        Graph g = new Graph(timePath.concat("\\graph3.txt"));
 //        int[][] cost = new int[g.size()][g.size()];
 //        int[][] predecessors = new int[g.size()][g.size()];
 //        g.floyed_warshal(predecessors,cost);
@@ -405,20 +405,20 @@ class GraphTest {
 //
 //    @Test
 //    void dijkstra100_1980() {
-//        Graph g = new Graph(timePath.concat("\\graph1001980.txt"));
+//        Graph g = new Graph(timePath.concat("\\graph4.txt"));
 //        int[] cost = new int[g.size()],parent = new int[g.size()];
 //        g.apply_dijkstra(0,cost,parent);
 //    }
 //    // 17 218
 //    @Test
 //    void bellman100_1980() {
-//        Graph g = new Graph(timePath.concat("\\graph1001980.txt"));
+//        Graph g = new Graph(timePath.concat("\\graph4.txt"));
 //        int[] cost = new int[g.size()],parent = new int[g.size()];
 //        g.bfShortestPath(0,cost,parent);
 //    }
 //    @Test
 //    void floyd100_1980() {
-//        Graph g = new Graph(timePath.concat("\\graph1001980.txt"));
+//        Graph g = new Graph(timePath.concat("\\graph4.txt"));
 //        int[][] cost = new int[g.size()][g.size()];
 //        int[][] predecessors = new int[g.size()][g.size()];
 //        g.floyed_warshal(predecessors,cost);

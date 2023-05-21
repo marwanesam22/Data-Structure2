@@ -37,7 +37,7 @@ public class CLI {
                     double startTime = System.nanoTime();
                     graph.apply_dijkstra(src,costs[src],predessesor[src]);
                     double elapsedTimeMicros = (System.nanoTime() - startTime) / 1000;
-                    System.out.println("di100_0.05 : " + elapsedTimeMicros);
+//                    System.out.println("di100_0.05 : " + elapsedTimeMicros);
                     algo_String = "Dijkstra";
                 } else if (algo == 2) {
                     graph.bfShortestPath(src,costs[src],predessesor[src]);
@@ -48,7 +48,7 @@ public class CLI {
                     double startTime = System.nanoTime();
                     graph.floyed_warshal(predessesor,costs);
                     double elapsedTimeMicros = (System.nanoTime() - startTime) / 1000;
-                    System.out.println("di100_0.05 : " + elapsedTimeMicros);
+//                    System.out.println("di100_0.05 : " + elapsedTimeMicros);
 //                    graph.floyed_warshal(predessesor,costs);
                     algo_String = "Floyed-Warshal";
                 }
@@ -62,12 +62,20 @@ public class CLI {
                         dest = check_validation_of_node(dest);
                         if(subOption == 1){
                             System.out.print("The shortest path cost form node " + src + " to node " + dest + " is: ");
-                            System.out.print(costs[src][dest]);
+                            if(costs[src][dest] >= 1000000){
+                                System.out.println("No path exists");
+                            }else{
+                                System.out.print(costs[src][dest]);
+                            }
                             System.out.println();
                         }else {
-                            System.out.print("The shortest path itself form node " + src + " to node " + dest + " is: ");
-                            System.out.print(getPath(predessesor[src],src,dest));
-                            System.out.println();
+                            if(costs[src][dest] >= 1000000){
+                                System.out.println("No path exists");
+                            }else{
+                                System.out.print("The shortest path itself form node " + src + " to node " + dest + " is: ");
+                                System.out.print(getPath(predessesor[src],src,dest));
+                                System.out.println();
+                            }
                         }
                     } else if (subOption == 3) {
                         break;
@@ -109,12 +117,20 @@ public class CLI {
                         dest = check_validation_of_node(dest);
                         if(subOption == 1){
                             System.out.print("The shortest path cost form node " + src + " to node " + dest + " is: ");
-                            System.out.print(costs[src][dest]);
+                            if(costs[src][dest] >= 1000000){
+                                System.out.println("No path exists");
+                            }else{
+                                System.out.print(costs[src][dest]);
+                            }
                             System.out.println();
                         }else {
-                            System.out.print("The shortest path itself form node " + src + " to node " + dest + " is: ");
-                            System.out.print(getPath(predessesor[src],src,dest));
-                            System.out.println();
+                            if(costs[src][dest] >= 1000000){
+                                System.out.println("No path exists");
+                            }else{
+                                System.out.print("The shortest path itself form node " + src + " to node " + dest + " is: ");
+                                System.out.print(getPath(predessesor[src],src,dest));
+                                System.out.println();
+                            }
                         }
                     } else if (subOption == 3) {
                         break;
@@ -167,7 +183,7 @@ public class CLI {
     }
     private int check_validation_of_node(int nodeEntered){
         int tmp  = nodeEntered;
-        while (!(nodeEntered >= 0 && nodeEntered < graph.size())){
+        while (!(tmp >= 0 && tmp < graph.size())){
             System.out.println("Please enter a valid node: ");
             tmp = scan.nextInt();
         }
