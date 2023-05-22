@@ -12,4 +12,6 @@ public interface IPerfectHashing {
     int[] batchDelete(String[] words);
 
     int printHTable();
+//    int inserted;
+    int getInserted();
 }

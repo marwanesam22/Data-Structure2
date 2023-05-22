@@ -29,6 +29,7 @@ public class OrderN extends PerfectHashing implements IPerfectHashing {
         }
         universalHashingFamily = new UniversalHashingFamily(32, length);
         hashing_matrix = universalHashingFamily.getrandomizedH();
+        inserted = 0;
     }
 
     public boolean insert(String key) {
@@ -42,6 +43,7 @@ public class OrderN extends PerfectHashing implements IPerfectHashing {
         int index_in_second_level = node.universalObject.computeHash(key, node.hash_function);
         if(node.elements[index_in_second_level] == null){
             node.elements[index_in_second_level] = key;
+            inserted++;
         } else {
             node.hashing(collisions[index_in_first_level]);
         }
@@ -78,6 +80,7 @@ public class OrderN extends PerfectHashing implements IPerfectHashing {
         Order_N_Node node = hashTable[index];
         int index_in_second_level = node.universalObject.computeHash(key, node.hash_function);
         node.elements[index_in_second_level] = null;
+        inserted--;
         return true;
     }
 
@@ -104,9 +107,19 @@ public class OrderN extends PerfectHashing implements IPerfectHashing {
         for(ArrayList<String> a: collisions) {
             if(a.size() > 0) x++;
         }
-        System.out.println("collisions = " +  ma / x);
+        try{
+            System.out.println("collisions = " +  ma);
+        }catch(Exception e){
+            System.out.println("Check if the dictionary is empty...");
+        }
+
         System.out.println("tables_Sizes = " + ( sz + hashTable.length));
         return count;
+    }
+
+    @Override
+    public int getInserted() {
+        return this.inserted;
     }
 
     private void firstLevelHashing(String[] arr) {
