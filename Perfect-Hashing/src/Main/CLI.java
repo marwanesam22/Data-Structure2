@@ -51,6 +51,7 @@ public class CLI {
                 newWord = scan.next();
                 System.out.println();
                 dictionary.insert(newWord);
+
             } else if (optionSelected == 2) {
                 //delete a word option
                 String word;
@@ -58,6 +59,7 @@ public class CLI {
                 word = scan.next();
                 System.out.println();
                 dictionary.delete(word);
+
             } else if (optionSelected == 3) {
                 //search for a word option
                 String word;
@@ -65,6 +67,7 @@ public class CLI {
                 word = scan.next();
                 System.out.println();
                 dictionary.search(word);
+
             } else if (optionSelected == 4) {
                 //batch insert option
                 String filePath = "";
@@ -78,11 +81,11 @@ public class CLI {
                     }
                 }
 
-//                long startTime = System.nanoTime();
+                long startTime = System.nanoTime();
                 dictionary.batchInsert(filePath);
-//                long endTime = System.nanoTime();
-//                double time_taken = (endTime - startTime) / (1000.0);
-//                System.out.println("Time taken is: " + time_taken + " us");
+                long endTime = System.nanoTime();
+                double time_taken = (endTime - startTime) / (1000.0);
+                System.out.println("Time taken is: " + time_taken/1000 + " ms");
             } else if (optionSelected == 5) {
                 //batch delete option
                 String filePath = "";
@@ -105,7 +108,7 @@ public class CLI {
                 break;
             } else {
                 //invalid option
-                System.out.println(dictionary.perfectHashing.printHTable());
+                dictionary.perfectHashing.printHTable();
                 System.out.println("Invalid option");
             }
 

@@ -1,22 +1,29 @@
 package UniversalPerfectHashing;
 
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
+import java.util.Arrays;
 import java.util.Random;
 
 public class UniversalHashingFamily {
-    private final int u;
-    private final int b;
+    public final int u;
+    public final int b;
+    public long[] coefficients;
+    int numCoefficients;
+    final long MOD= (long) 1e9+7;
 
-    public UniversalHashingFamily(int u, int b) {
+    protected int get_b(int tableLength) {
+        return (int)Math.floor(Math.log((double)tableLength) / Math.log(2.0));
+    }
+
+
+    public UniversalHashingFamily(int u, int n) {
+        this.b = get_b(Integer.highestOneBit((n - 1) << 1));
         this.u = u;
-        this.b = b;
+        numCoefficients = 100;
+        this.coefficients = generateCoefficients();
     }
 
     public int[][] getrandomizedH() {
+
         int[][] matrix = new int[this.b][this.u];
         Random random = new Random();
 
@@ -25,18 +32,15 @@ public class UniversalHashingFamily {
                 matrix[i][j] = random.nextInt(2);
             }
         }
-
         return matrix;
     }
 
     private int[] convertToBinary(int key, int maxNoOfBits) {
         int[] binaryNumber = new int[maxNoOfBits];
-
         for(int i = maxNoOfBits - 1; i >= 0; --i) {
             binaryNumber[i] = key & 1;
             key >>= 1;
         }
-
         return binaryNumber;
     }
 
@@ -69,5 +73,28 @@ public class UniversalHashingFamily {
 
         return this.convertToDecimal(hx);
     }
-}
 
+    //------------string-hasher methods-----------------------------
+
+    public int computeHash(String s, int[][] hashing_matrix){
+        long hashValue = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            hashValue = (hashValue * this.coefficients[i % this.numCoefficients] + c) % MOD;
+        }
+        return HF((int)hashValue, hashing_matrix);
+    }
+
+    private long[] generateCoefficients() {
+        int numCoefficients = this.numCoefficients;
+        Random random = new Random();
+        long[] coefficients = new long[numCoefficients];
+        for (int i = 0; i < numCoefficients; i++) {
+            coefficients[i] = random.nextLong(MOD - 1) + 1; // Random coefficient between 1 and prime-1
+        }
+        return coefficients;
+    }
+
+
+
+}

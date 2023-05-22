@@ -1,6 +1,7 @@
 package Main;
 
 import LinearHashing.OrderN;
+import SquareHashing.OrderN2;
 
 public class Main {
 
@@ -8,12 +9,16 @@ public class Main {
         CLI cli = new CLI();
         cli.start();
 //        Generation generation = new Generation();
-//        Integer []arr = generation.generateDistinctArray(2000000);
+//        Integer []arr = generation.generateDistinctArray(15000);
 //////        Integer[] arr = {1, 5};
-//        OrderN orderN = new OrderN(arr.length);
-//////        for(int i : arr) {
-//////            orderN.insert(i);
-//////        }
+//        OrderN2 orderN2 = new OrderN2(arr.length);
+//
+//        for(int i : arr) {
+//            orderN2.insert(i);
+//        }
+//        orderN2.printHTable();
+//        System.out.println("number of collisions is : " + orderN2.getNumberOfCollisions());
+
 //
 //
 //        int[] arrr = new int[arr.length];
