@@ -2,12 +2,18 @@ package Tests;
 
 import Main.Dictionary;
 
+import java.io.File;
+import java.util.Scanner;
+
 public class TestMain {
 
     static final String TEST_PATH =
-            "D:\\Engineering\\DS2\\perfectHasing\\Data-Structure2\\Perfect-Hashing\\Random Input";
+            "D:\\Engineering\\DS2\\Data-Structure2\\Perfect-Hashing\\Random Input";
 
+    static final int[] commonSizes = {100, 1000, 5000, 10_000};
     static final int[] sizes = {100, 1000, 5000, 10_000, 50_000, 100_000, 200_000, 400_000, 500_000, 600_000, 800_000, 1_000_000};
+    static final int[] MiniSizes = {1000, 3000, 5000, 7000, 10_000, 11_000, 13_000, 15_000, 17_000};
+
     /*
      * batch insert time
      * batch delete time
@@ -65,7 +71,7 @@ public class TestMain {
         long startTime = System.nanoTime();
         test.run(path);
         long endTime = System.nanoTime();
-        System.out.println("time elapsed: " + (endTime-startTime));
+        System.out.println("time elapsed: " + (endTime-startTime)/1000.0);
         dict.getData();
     }
 
@@ -73,7 +79,7 @@ public class TestMain {
         long startTime = System.nanoTime();
         test.run(val);
         long endTime = System.nanoTime();
-        System.out.println("time elapsed: " + (endTime-startTime));
+        System.out.println("time elapsed: " + (endTime-startTime)/1000.0);
         dict.getData();
     }
 
@@ -95,11 +101,57 @@ public class TestMain {
         }
     }
 
+    public void allMiniSizeGeneralTimeTest(int type){
+        for(int size: MiniSizes){
+            System.out.println("************* SIZE = "+size+" *******************");
+            generalTimeTest(type, size);
+        }
+    }
+
+    public void compareDictionaries(Dictionary dictN2, Dictionary dictN){
+        for(int size: commonSizes){
+            this.batchInsertTest(dictN2);
+            this.batchInsertTest(dictN);
+        }
+    }
+
+    public void allElementSearchTest(Dictionary dict) throws Exception{
+        String path = TEST_PATH+"\\in"+dict.getSize()+".txt";
+        File file = new File(path);
+        Scanner scanner = new Scanner(file);
+        long totalTime = 0;
+        while(scanner.hasNextLine()){
+            String ele = scanner.nextLine();
+            System.out.println(ele);
+            long start = System.nanoTime();
+            dict.search(ele);
+            long end = System.nanoTime();
+            totalTime += (end-start);
+        }
+        System.out.println("Total search time = " + totalTime/1000.0+"us");
+        System.out.println("Mean search time = " + (totalTime/1000.0)/dict.getSize()+"us");
+    }
+
     public static void main(String[] args){
         TestMain t = new TestMain();
 //        Dictionary dict = new Dictionary(1, 1_000);
-        t.allSizeGeneralTimeTest(2);
+//        t.allSizeGeneralTimeTest(2);
 
+//        Dictionary dict = new Dictionary(1, size);
+//        t.allSizeGeneralTimeTest(2);
+
+        Dictionary dict = new Dictionary(2, 1_000_000);
+        dict.batchInsert(TEST_PATH+"\\in"+dict.getSize()+".txt");
+        try {
+            t.allElementSearchTest(dict);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        t.searchTest(dict, "jumbo");
+        t.searchTest(dict, "ZKyLSTQRXU");
+
+//        t.allMiniSizeGeneralTimeTest(1);
+//            t.allSizeGeneralTimeTest(2);
     }
 
 

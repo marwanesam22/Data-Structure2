@@ -12,10 +12,11 @@ import java.util.ArrayList;
 
 public class Dictionary {
 
-    IPerfectHashing perfectHashing;
+    public IPerfectHashing perfectHashing;
 
     private final int type;
     private int size;
+    public int inserted;
 
     public int getType() {
         return type;
@@ -34,31 +35,41 @@ public class Dictionary {
         }else{
             perfectHashing = new OrderN(size);
         }
+        inserted = 0;
     }
 
-    public void insert(String word){
-        if(perfectHashing.insert(word)){
+    public boolean insert(String word){
+        boolean exists = perfectHashing.insert(word);
+        if(!exists){
             System.out.println(  "=> "+ "\"" + word + "\"" + " has been inserted successfully in the dictionary");
         }else{
             System.out.println("=> "+ "\"" + word + "\"" + " already exists in the dictionary");
         }
         perfectHashing.printHTable();
+        inserted++;
+        return exists;
     }
 
-    public void delete(String word){
-        if(perfectHashing.delete(word)){
+    public boolean delete(String word){
+        boolean exists = perfectHashing.delete(word);
+        if(exists){
             System.out.println("=> "+ "\"" + word + "\"" + " has been deleted successfully from the dictionary");
+            inserted--;
         }else{
             System.out.println("=> "+ "\"" + word + "\"" + " doesn't exist in the dictionary");
         }
         perfectHashing.printHTable();
+
+        return exists;
     }
 
-    public void search(String word){
+    public boolean search(String word){
         if(perfectHashing.search(word)){
             System.out.println("=> "+ "\"" + word + "\"" + " is in the dictionary");
+            return true;
         }else{
             System.out.println("=> "+ "\"" + word + "\"" + " does not exist in the dictionary");
+            return false;
         }
     }
 
@@ -106,6 +117,10 @@ public class Dictionary {
             System.out.println("Number of collisions = "+((OrderN2)perfectHashing).getNumberOfCollisions());
             System.out.println("Size = " + this.size*this.size);
         }
+    }
+
+    public int getInserted(){
+        return this.perfectHashing.getInserted();
     }
 
 }

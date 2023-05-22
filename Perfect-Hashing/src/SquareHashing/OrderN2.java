@@ -11,6 +11,12 @@ public class OrderN2 extends PerfectHashing implements IPerfectHashing {
     public String[] hashTable;
     public int numberOfCollision;
 
+    public int inserted = 0;
+
+    public int getInserted(){
+        return this.inserted;
+    }
+
     public OrderN2(int length) {
         tableLength = Integer.highestOneBit(length * length - 1 << 1) ;//to get the nearest power of two larger than or equal to len * len
         System.out.println(tableLength);
@@ -18,17 +24,20 @@ public class OrderN2 extends PerfectHashing implements IPerfectHashing {
         hashing_matrix = universalHashingFamily.getrandomizedH();
         hashTable = new String[tableLength];
         numberOfCollision = 0;
+        inserted = 0;
     }
 
     public boolean insert(String key){
         int index = universalHashingFamily.computeHash(key, hashing_matrix);
         if(hashTable[index] == null){
             hashTable[index] = key;
+            inserted++;
         }else if(hashTable[index].equals(key)){
             return false;
         } else{
             //so there's a collision here we rehash again
             numberOfCollision++;
+            inserted++;
             reHash(key);
         }
         return true;
@@ -48,6 +57,7 @@ public class OrderN2 extends PerfectHashing implements IPerfectHashing {
         if(!search(key))return false;
         int index = universalHashingFamily.computeHash(key, hashing_matrix);
         hashTable[index] = null;
+        inserted--;
         return true;
     }
 
@@ -80,6 +90,7 @@ public class OrderN2 extends PerfectHashing implements IPerfectHashing {
         System.out.println();
         System.out.println("The number of non-null elements is : " + count);
         System.out.println("The current number of collisions is: " + numberOfCollision);
+        System.out.println("table_length = "+this.tableLength);
         return count;
     }
 
