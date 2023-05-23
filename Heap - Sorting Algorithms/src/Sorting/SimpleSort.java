@@ -2,19 +2,21 @@ package Sorting;
 
 public class SimpleSort {
 
-    public void insertionSort(int[] arr) {
-        for (int i = 1; i < arr.length; i++) {
-            int value = arr[i];
-            int hole = i;
-            while (hole > 0 && arr[hole - 1] > value) {
-                arr[hole] = arr[hole - 1];
-                hole--;
-            }
-            arr[hole] = value;
-        }
-    }
+//    public void insertionSort(int[] arr) {
+//        for (int i = 1; i < arr.length; i++) {
+//            int value = arr[i];
+//            int hole = i;
+//            while (hole > 0 && arr[hole - 1] > value) {
+//                arr[hole] = arr[hole - 1];
+//                hole--;
+//            }
+//            arr[hole] = value;
+//        }
+//    }
 
     public  void bubbleSort(int[] arr) {
+        System.out.println("Input size is  " + arr.length);
+        long start = System.nanoTime();
         boolean already_ordered;
         for (int i = 0; i < arr.length - 1; i++) {
             already_ordered = false;
@@ -32,6 +34,8 @@ public class SimpleSort {
                 break;
             }
         }
+        long duration = System.nanoTime() - start;
+        System.out.println("Time taken is : " + duration / 1000.0 + " us");
     }
 
 }

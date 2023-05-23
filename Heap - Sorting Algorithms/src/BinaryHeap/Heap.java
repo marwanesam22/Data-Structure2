@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Heap {
-
     int[] heap = new int[1000000];
     int lastIndex = 0;
 
@@ -65,12 +64,16 @@ public class Heap {
     }
 
     public int[] heapSort(int[] arr) {
+        System.out.println("Array length is " + arr.length);
+        long Start = System.nanoTime();
         buildMaxHeap(arr);
         for(int i=0;i<this.heap.length;i++) {
 //            System.out.println(Arrays.toString(arr));
             int removed = extractMax();
             this.heap[this.lastIndex] = removed;
         }
+        long duration  =  System.nanoTime() - Start;
+        System.out.println("time taken = " + duration/1000 + " us");
         return arr;
     }
 
