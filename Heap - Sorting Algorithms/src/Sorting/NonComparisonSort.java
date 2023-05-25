@@ -5,6 +5,8 @@ import java.util.Arrays;
 public class NonComparisonSort {
 
     public int[] counting_Sort(int[] arr) {
+        System.out.println("Input size is  " + arr.length);
+        long start = System.nanoTime();
         int[] result = new int[arr.length];
         int[] freqArray = new int[Arrays.stream(arr).max().orElse(0)+1];
         Arrays.fill(freqArray, 0);
@@ -24,6 +26,8 @@ public class NonComparisonSort {
             result[currIndex] = tmp;
             freqArray[tmp]--;
         }
+        long duration = System.nanoTime() - start;
+        System.out.println("Time taken is : " + duration / 1000.0 + " us");
         return result;
     }
 

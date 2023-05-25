@@ -22,7 +22,7 @@ public class SortArray {
         }
     }
 
-
-
-
+    public int[] getArray(){
+        return this.arr;
+    }
 }
