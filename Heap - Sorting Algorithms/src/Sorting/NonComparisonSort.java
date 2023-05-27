@@ -4,30 +4,33 @@ import java.util.Arrays;
 
 public class NonComparisonSort {
 
-    public int[] counting_Sort(int[] arr) {
-        System.out.println("Input size is  " + arr.length);
-        long start = System.nanoTime();
+
+
+
+    public int[] counting_Sort(int[] arr, int printIntermediate) {
+        int min = Arrays.stream(arr).min().orElse(0);
+        int max = Arrays.stream(arr).max().orElse(0);
+
+        int range = max - min + 1;
         int[] result = new int[arr.length];
-        int[] freqArray = new int[Arrays.stream(arr).max().orElse(0)+1];
+        int[] freqArray = new int[range];
         Arrays.fill(freqArray, 0);
 
         for (int j : arr) {
-//            int tmp = arr[i] / (int) Math.pow(radix, ith_iteration - 1) % radix;
-            freqArray[j]++;
+            freqArray[j - min]++;
         }
-        //getting the prefix sum
+
         for (int i = 1; i < freqArray.length; i++) {
             freqArray[i] += freqArray[i - 1];
         }
 
         for (int i = arr.length - 1; i >= 0; i--) {
             int tmp = arr[i];
-            int currIndex = freqArray[tmp] - 1;
+            int currIndex = freqArray[tmp - min] - 1;
             result[currIndex] = tmp;
-            freqArray[tmp]--;
+            freqArray[tmp - min]--;
+            if(printIntermediate == 1) System.out.println(Arrays.toString(result));
         }
-        long duration = System.nanoTime() - start;
-        System.out.println("Time taken is : " + duration / 1000.0 + " us");
         return result;
     }
 

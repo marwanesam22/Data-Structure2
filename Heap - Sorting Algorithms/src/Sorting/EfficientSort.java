@@ -1,17 +1,19 @@
 package Sorting;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class EfficientSort {
 
-    public void mergeSort(int[] arr){
-        System.out.println("Input size is  " + arr.length);
-        long start = System.nanoTime();
-        merge_Sort(arr);
-        long duration = System.nanoTime() - start;
-        System.out.println("Time taken is : " + duration / 1000.0 + " us");
+    public void mergeSort(int[] arr, int printIntermediate){
+//        System.out.println("Input size is  " + arr.length);
+//        long start = System.nanoTime();
+        merge_Sort(arr,printIntermediate);
+//        System.out.println(Arrays.toString(arr));
+//        long duration = System.nanoTime() - start;
+//        System.out.println("Time taken is : " + duration / 1000.0 + " us");
      }
-    public void merge_Sort(int[] arr) {
+    public void merge_Sort(int[] arr, int printIntermediate) {
         if (arr == null || arr.length <= 1) {
             return; // Array is already sorted or empty
         }
@@ -25,9 +27,10 @@ public class EfficientSort {
         System.arraycopy(arr, 0, left, 0, mid);
         System.arraycopy(arr, mid, right, 0, n - mid);
 
-        merge_Sort(left);
-        merge_Sort(right);
+        merge_Sort(left,printIntermediate);
+        merge_Sort(right,printIntermediate);
         merge(arr, left, right);
+        if(printIntermediate == 1)System.out.println(Arrays.toString(arr));
     }
 
     private static void merge(int[] arr, int[] left, int[] right) {

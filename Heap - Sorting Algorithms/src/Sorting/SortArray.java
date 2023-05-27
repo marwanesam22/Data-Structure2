@@ -22,7 +22,22 @@ public class SortArray {
         }
     }
 
+
+
     public int[] getArray(){
         return this.arr;
     }
+
+    public void simpleSort(int printIntermediate){
+        new SimpleSort().bubbleSort(arr,printIntermediate);
+    }
+
+    public void efficientSort(int printIntermediate){
+        new EfficientSort().mergeSort(arr,printIntermediate);
+    }
+
+    public void nonComparisonSort(int printIntermediate){
+        arr = new NonComparisonSort().counting_Sort(arr,printIntermediate);
+    }
+
 }

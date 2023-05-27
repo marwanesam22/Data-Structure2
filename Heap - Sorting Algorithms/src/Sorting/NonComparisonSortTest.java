@@ -62,7 +62,7 @@ class NonComparisonSortTest {
 
         filePath = PATH+"\\in100\\in100_best.txt";
         int []outArray = readFile(filePath);
-        int []sorted = new NonComparisonSort().counting_Sort(inputArray);
+        int []sorted = new NonComparisonSort().counting_Sort(inputArray,0);
         assertArrayEquals(outArray, sorted);
     }
 
@@ -74,7 +74,7 @@ class NonComparisonSortTest {
 
         filePath = PATH+"\\in100\\in100_best.txt";
         int []outArray = readFile(filePath);
-         int []sorted = new NonComparisonSort().counting_Sort(inputArray);
+         int []sorted = new NonComparisonSort().counting_Sort(inputArray,0);
         assertArrayEquals(outArray, sorted);
     }
 
@@ -86,7 +86,7 @@ class NonComparisonSortTest {
 
         filePath = PATH+"\\in1000000\\in1000000_best.txt";
         int []outArray = readFile(filePath);
-         int []sorted = new NonComparisonSort().counting_Sort(inputArray);
+         int []sorted = new NonComparisonSort().counting_Sort(inputArray,0);
         assertArrayEquals(outArray, sorted);
     }
 
@@ -98,7 +98,7 @@ class NonComparisonSortTest {
 
         filePath = PATH+"\\in1000000\\in1000000_best.txt";
         int []outArray = readFile(filePath);
-         int []sorted = new NonComparisonSort().counting_Sort(inputArray);
+         int []sorted = new NonComparisonSort().counting_Sort(inputArray,0);
         assertArrayEquals(outArray, sorted);
     }
 

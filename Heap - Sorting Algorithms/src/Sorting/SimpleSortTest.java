@@ -62,7 +62,7 @@ class SimpleSortTest {
 
         filePath = PATH+"\\in100\\in100_best.txt";
         int []outArray = readFile(filePath);
-        new SimpleSort().bubbleSort(inputArray);
+        new SimpleSort().bubbleSort(inputArray,0);
         assertArrayEquals(outArray, inputArray);
     }
 
@@ -74,7 +74,7 @@ class SimpleSortTest {
 
         filePath = PATH+"\\in100\\in100_best.txt";
         int []outArray = readFile(filePath);
-        new SimpleSort().bubbleSort(inputArray);
+        new SimpleSort().bubbleSort(inputArray,0);
         assertArrayEquals(outArray, inputArray);
     }
 
@@ -86,7 +86,7 @@ class SimpleSortTest {
 
         filePath = PATH+"\\in100000\\in100000_best.txt";
         int []outArray = readFile(filePath);
-        new SimpleSort().bubbleSort(inputArray);
+        new SimpleSort().bubbleSort(inputArray,0);
         assertArrayEquals(outArray, inputArray);
     }
 
@@ -98,7 +98,7 @@ class SimpleSortTest {
 
         filePath = PATH+"\\in100000\\in100000_best.txt";
         int []outArray = readFile(filePath);
-        new SimpleSort().bubbleSort(inputArray);
+        new SimpleSort().bubbleSort(inputArray,0);
         assertArrayEquals(outArray, inputArray);
     }
 
@@ -110,7 +110,7 @@ class SimpleSortTest {
 
         filePath = PATH+"\\in_neg10000\\in_neg10000_best.txt";
         int []outArray = readFile(filePath);
-         new SimpleSort().bubbleSort(inputArray);
+         new SimpleSort().bubbleSort(inputArray,0);
         assertArrayEquals(outArray, inputArray);
     }
 
@@ -122,7 +122,7 @@ class SimpleSortTest {
 
         filePath = PATH+"\\in_neg100000\\in_neg100000_best.txt";
         int []outArray = readFile(filePath);
-         new SimpleSort().bubbleSort(inputArray);
+         new SimpleSort().bubbleSort(inputArray,0);
         assertArrayEquals(outArray, inputArray);
     }
 }

@@ -1,5 +1,7 @@
 package Sorting;
 
+import java.util.Arrays;
+
 public class SimpleSort {
 
 //    public void insertionSort(int[] arr) {
@@ -14,9 +16,9 @@ public class SimpleSort {
 //        }
 //    }
 
-    public  void bubbleSort(int[] arr) {
-        System.out.println("Input size is  " + arr.length);
-        long start = System.nanoTime();
+    public  void bubbleSort(int[] arr, int printIntermediate) {
+//        System.out.println("Input size is  " + arr.length);
+//        long start = System.nanoTime();
         boolean already_ordered;
         for (int i = 0; i < arr.length - 1; i++) {
             already_ordered = false;
@@ -33,9 +35,10 @@ public class SimpleSort {
             if (!already_ordered) {
                 break;
             }
+            if(printIntermediate == 1) System.out.println(Arrays.toString(arr));
         }
-        long duration = System.nanoTime() - start;
-        System.out.println("Time taken is : " + duration / 1000.0 + " us");
+//        long duration = System.nanoTime() - start;
+//        System.out.println("Time taken is : " + duration / 1000.0 + " us");
     }
 
 }
