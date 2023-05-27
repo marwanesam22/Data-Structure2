@@ -62,7 +62,7 @@ class HeapTest {
         filePath = PATH+"\\in100\\in100_best.txt";
         int []outArray = readFile(filePath);
         Heap heap = new Heap();
-        int[] sorted = measureSortTime(()-> heap.heapSort(inputArray));
+        int[] sorted = measureSortTime(()-> heap.heapSort(inputArray,0));
         assertArrayEquals(outArray, sorted);
     }
 
@@ -74,7 +74,7 @@ class HeapTest {
 
         filePath = PATH+"\\in100\\in100_best.txt";
         int []outArray = readFile(filePath);
-        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray));
+        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray,0));
         assertArrayEquals(outArray, sorted);
     }
 
@@ -86,7 +86,7 @@ class HeapTest {
 
         filePath = PATH+"\\in1000000\\in1000000_best.txt";
         int []outArray = readFile(filePath);
-        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray));
+        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray,0));
         assertArrayEquals(outArray, sorted);
     }
 
@@ -98,7 +98,7 @@ class HeapTest {
 
         filePath = PATH+"\\in1000000\\in1000000_best.txt";
         int []outArray = readFile(filePath);
-        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray));
+        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray,0));
         assertArrayEquals(outArray, sorted);
     }
 
@@ -110,7 +110,7 @@ class HeapTest {
 
         filePath = PATH+"\\in_neg10000\\in_neg10000_best.txt";
         int []outArray = readFile(filePath);
-        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray));
+        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray,0));
         assertArrayEquals(outArray, sorted);
     }
 
@@ -122,7 +122,7 @@ class HeapTest {
 
         filePath = PATH+"\\in_neg100000\\in_neg100000_best.txt";
         int []outArray = readFile(filePath);
-        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray));
+        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray,0));
         assertArrayEquals(outArray, sorted);
     }
 

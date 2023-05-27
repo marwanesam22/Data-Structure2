@@ -13,11 +13,11 @@ public class CLI {
         System.out.println();
         SortArray sort = new SortArray(path);
         System.out.println("---------------------- Main Menu--------------------------");
-        System.out.println("Select one of the following algorithms to run (1/2/3): ");
-        System.out.println("1- Bubble Sort          2- Merge Sort           3- Counting Sort");
+        System.out.println("Select one of the following algorithms to run (1/2/3/4): ");
+        System.out.println("1- Simple Sort      2- Efficient Sort       3- Non-Comparison Sort      4- Heap Sort");
         System.out.print("Option: ");
         int option = scan.nextInt();
-        while(option < 1 || option > 3){
+        while(option < 1 || option > 4){
             System.out.println("Please select a valid input !");
             option = scan.nextInt();
         }
@@ -43,8 +43,10 @@ public class CLI {
             sort.simpleSort(printIntermediate);
         }else if(option == 2){
             sort.efficientSort(printIntermediate);
-        }else{
+        }else if(option == 3) {
             sort.simpleSort(printIntermediate);
+        }else {
+            sort.heapSort(printIntermediate);
         }
 
         System.out.println();

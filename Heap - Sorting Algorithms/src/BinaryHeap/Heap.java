@@ -63,17 +63,17 @@ public class Heap {
         return max;
     }
 
-    public int[] heapSort(int[] arr) {
-        System.out.println("Array length is " + arr.length);
-        long Start = System.nanoTime();
+    public int[] heapSort(int[] arr, int printIntermediate) {
+//        System.out.println("Array length is " + arr.length);
+//        long Start = System.nanoTime();
         buildMaxHeap(arr);
         for(int i=0;i<this.heap.length;i++) {
-//            System.out.println(Arrays.toString(arr));
             int removed = extractMax();
             this.heap[this.lastIndex] = removed;
+            if(printIntermediate == 1) System.out.println(Arrays.toString(arr));
         }
-        long duration  =  System.nanoTime() - Start;
-        System.out.println("time taken = " + duration/1000 + " us");
+//        long duration  =  System.nanoTime() - Start;
+//        System.out.println("time taken = " + duration/1000 + " us");
         return arr;
     }
 

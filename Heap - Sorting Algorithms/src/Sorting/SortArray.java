@@ -1,5 +1,7 @@
 package Sorting;
 
+import BinaryHeap.Heap;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,6 +40,10 @@ public class SortArray {
 
     public void nonComparisonSort(int printIntermediate){
         arr = new NonComparisonSort().counting_Sort(arr,printIntermediate);
+    }
+
+    public void heapSort(int printIntermediate){
+        new Heap().heapSort(arr,printIntermediate);
     }
 
 }
