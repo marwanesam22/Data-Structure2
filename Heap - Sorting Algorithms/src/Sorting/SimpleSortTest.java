@@ -54,6 +54,18 @@ class SimpleSortTest {
     static final String PATH = "C:\\Users\\Adel\\Desktop\\6th term\\DS 2\\labs\\Data-Structure2\\Heap - Sorting Algorithms\\src\\Test_Cases";
 
 
+
+    @Test
+    void test0(){
+        //Test against one element only
+        String filePath = PATH+"\\oneElement.txt";
+        int []inputArray = readFile(filePath);
+
+        int []outArray = readFile(filePath);
+        new SimpleSort().bubbleSort(inputArray,0);
+        assertArrayEquals(outArray, inputArray);
+    }
+
     @Test
     void test1(){
         //Test correctness under 100 integers with average case with positive values

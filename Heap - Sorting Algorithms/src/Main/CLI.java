@@ -1,5 +1,6 @@
 package Main;
 
+import Sorting.NonComparisonSort;
 import Sorting.SortArray;
 
 import java.util.Arrays;
@@ -32,6 +33,7 @@ public class CLI {
         while(printIntermediate != 0 && printIntermediate != 1){
             System.out.println("Please select a valid input !");
              printIntermediate = scan.nextInt();
+
         }
 
         if(printIntermediate == 1){

@@ -11,7 +11,7 @@ public class EfficientSort {
         merge_Sort(arr,printIntermediate);
 //        System.out.println(Arrays.toString(arr));
 //        long duration = System.nanoTime() - start;
-//        System.out.println("Time taken is : " + duration / 1000.0 + " us");
+//        System.out.println("Time taken is : " + duration + " us");
      }
     public void merge_Sort(int[] arr, int printIntermediate) {
         if (arr == null || arr.length <= 1) {

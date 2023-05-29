@@ -39,15 +39,15 @@ public class Dictionary {
     }
 
     public boolean insert(String word){
-        boolean exists = perfectHashing.insert(word);
-        if(!exists){
+        boolean success = perfectHashing.insert(word);
+        if(success){
             System.out.println(  "=> "+ "\"" + word + "\"" + " has been inserted successfully in the dictionary");
         }else{
             System.out.println("=> "+ "\"" + word + "\"" + " already exists in the dictionary");
         }
         perfectHashing.printHTable();
         inserted++;
-        return exists;
+        return success;
     }
 
     public boolean delete(String word){

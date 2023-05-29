@@ -54,6 +54,18 @@ class HeapTest {
 
 
     @Test
+    void test0(){
+        //testing the correctness when one element is in the array only
+        String filePath = PATH+"\\oneElement.txt";
+        int []inputArray = readFile(filePath);
+
+        filePath = PATH+"\\oneElement.txt";
+        int []outArray = readFile(filePath);
+        Heap heap = new Heap();
+        int[] sorted = measureSortTime(()-> heap.heapSort(inputArray,0));
+        assertArrayEquals(outArray, sorted);
+    }
+    @Test
     void test1(){
         //Test correctness under 100 integers with average case with positive valuse
         String filePath = PATH+"\\in100\\in100_average.txt";
@@ -65,6 +77,8 @@ class HeapTest {
         int[] sorted = measureSortTime(()-> heap.heapSort(inputArray,0));
         assertArrayEquals(outArray, sorted);
     }
+
+
 
     @Test
     void test2(){
@@ -92,7 +106,7 @@ class HeapTest {
 
     @Test
     void test4(){
-        //worst case on a very large input file with positive valuse
+        //worst case on a very large input file with positive values
         String filePath = PATH+"\\in1000000\\in1000000_best.txt";
         int []inputArray = readFile(filePath);
 

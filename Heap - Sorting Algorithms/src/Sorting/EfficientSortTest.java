@@ -55,6 +55,18 @@ class EfficientSortTest {
 
 
     @Test
+    void test0(){
+        //Test against one element only
+        String filePath = PATH+"\\oneElement.txt";
+        int []inputArray = readFile(filePath);
+
+        int []outArray = readFile(filePath);
+        new EfficientSort().mergeSort(inputArray,0);
+        assertArrayEquals(outArray, inputArray);
+    }
+
+
+    @Test
     void test1(){
         //Test correctness under 100 integers with average case with positive values
         String filePath = PATH+"\\in100\\in100_average.txt";

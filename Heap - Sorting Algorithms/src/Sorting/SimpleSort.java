@@ -16,6 +16,7 @@ public class SimpleSort {
 //        }
 //    }
 
+
     public  void bubbleSort(int[] arr, int printIntermediate) {
 //        System.out.println("Input size is  " + arr.length);
 //        long start = System.nanoTime();
@@ -38,7 +39,7 @@ public class SimpleSort {
             if(printIntermediate == 1) System.out.println(Arrays.toString(arr));
         }
 //        long duration = System.nanoTime() - start;
-//        System.out.println("Time taken is : " + duration / 1000.0 + " us");
+//        System.out.println("Time taken is : " + duration + " us");
     }
 
 }

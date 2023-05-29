@@ -13,6 +13,8 @@ public class Main {
 
     public static void main(String[] args) {
         new CLI().start();
+
+        //TODO adding testing for sorting one element in the array
 //        int[] arr = {10,5,6,8,4,3,2,20,30};
 //        new SortArray("C:\\Users\\Adel\\Downloads\\tst.txt").efficientSort(0);
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Heap {
-    int[] heap = new int[1000000];
+    int[] heap = new int[5000000];
     int lastIndex = 0;
 
     private void maxHeapify(int[] arr, int index, int length) {
