@@ -20,9 +20,8 @@ public class SimpleSort {
     public  void bubbleSort(int[] arr, int printIntermediate) {
 //        System.out.println("Input size is  " + arr.length);
 //        long start = System.nanoTime();
-        boolean already_ordered;
+        boolean already_ordered = false;
         for (int i = 0; i < arr.length - 1; i++) {
-            already_ordered = false;
             for (int j = 0; j < arr.length - i - 1; j++) {
                 if (arr[j] > arr[j + 1]) {
                     // move the larger element to the right

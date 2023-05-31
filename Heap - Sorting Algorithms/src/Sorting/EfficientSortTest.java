@@ -27,30 +27,6 @@ class EfficientSortTest {
         return arr;
     }
 
-    interface TimeMeasure{
-        void foo();
-    }
-
-    interface SortTimeMeasure{
-        int[] foo();
-    }
-
-    public void measureTime(TimeMeasure tm){
-        long startTime = System.nanoTime();
-        tm.foo();
-        long endTime = System.nanoTime();
-        System.out.println("Time elapsed = "+((endTime-startTime)/1000.0)+" us");
-    }
-
-    public int[] measureSortTime(SortTimeMeasure stm){
-        int[] sortedArr;
-        long startTime = System.nanoTime();
-        sortedArr = stm.foo();
-        long endTime = System.nanoTime();
-        System.out.println("Time elapsed = "+((endTime-startTime)/1000.0)+" us");
-        return sortedArr;
-    }
-
     static final String PATH = "C:\\Users\\Adel\\Desktop\\6th term\\DS 2\\labs\\Data-Structure2\\Heap - Sorting Algorithms\\src\\Test_Cases";
 
 

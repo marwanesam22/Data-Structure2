@@ -26,29 +26,7 @@ class HeapTest {
         return arr;
     }
 
-    interface TimeMeasure{
-        void foo();
-    }
 
-    interface SortTimeMeasure{
-        int[] foo();
-    }
-
-    public void measureTime(TimeMeasure tm){
-        long startTime = System.nanoTime();
-        tm.foo();
-        long endTime = System.nanoTime();
-        System.out.println("Time elapsed = "+((endTime-startTime)/1000.0)+" us");
-    }
-
-    public int[] measureSortTime(SortTimeMeasure stm){
-        int[] sortedArr;
-        long startTime = System.nanoTime();
-        sortedArr = stm.foo();
-        long endTime = System.nanoTime();
-        System.out.println("Time elapsed = "+((endTime-startTime)/1000.0)+" us");
-        return sortedArr;
-    }
 
     static final String PATH = "C:\\Users\\Adel\\Desktop\\6th term\\DS 2\\labs\\Data-Structure2\\Heap - Sorting Algorithms\\src\\Test_Cases";
 
@@ -62,7 +40,7 @@ class HeapTest {
         filePath = PATH+"\\oneElement.txt";
         int []outArray = readFile(filePath);
         Heap heap = new Heap();
-        int[] sorted = measureSortTime(()-> heap.heapSort(inputArray,0));
+        int[] sorted =  heap.heapSort(inputArray,0);
         assertArrayEquals(outArray, sorted);
     }
     @Test
@@ -74,7 +52,7 @@ class HeapTest {
         filePath = PATH+"\\in100\\in100_best.txt";
         int []outArray = readFile(filePath);
         Heap heap = new Heap();
-        int[] sorted = measureSortTime(()-> heap.heapSort(inputArray,0));
+        int[] sorted =  heap.heapSort(inputArray,0);
         assertArrayEquals(outArray, sorted);
     }
 
@@ -88,9 +66,10 @@ class HeapTest {
 
         filePath = PATH+"\\in100\\in100_best.txt";
         int []outArray = readFile(filePath);
-        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray,0));
+        int[] sorted =  new Heap().heapSort(inputArray,0);
         assertArrayEquals(outArray, sorted);
     }
+
 
     @Test
     void test3(){
@@ -100,7 +79,7 @@ class HeapTest {
 
         filePath = PATH+"\\in1000000\\in1000000_best.txt";
         int []outArray = readFile(filePath);
-        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray,0));
+        int[] sorted =  new Heap().heapSort(inputArray,0);
         assertArrayEquals(outArray, sorted);
     }
 
@@ -112,7 +91,7 @@ class HeapTest {
 
         filePath = PATH+"\\in1000000\\in1000000_best.txt";
         int []outArray = readFile(filePath);
-        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray,0));
+        int[] sorted =  new Heap().heapSort(inputArray,0);
         assertArrayEquals(outArray, sorted);
     }
 
@@ -124,7 +103,7 @@ class HeapTest {
 
         filePath = PATH+"\\in_neg10000\\in_neg10000_best.txt";
         int []outArray = readFile(filePath);
-        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray,0));
+        int[] sorted =  new Heap().heapSort(inputArray,0);
         assertArrayEquals(outArray, sorted);
     }
 
@@ -136,7 +115,7 @@ class HeapTest {
 
         filePath = PATH+"\\in_neg100000\\in_neg100000_best.txt";
         int []outArray = readFile(filePath);
-        int[] sorted = measureSortTime(()-> new Heap().heapSort(inputArray,0));
+        int[] sorted =  new Heap().heapSort(inputArray,0);
         assertArrayEquals(outArray, sorted);
     }
 

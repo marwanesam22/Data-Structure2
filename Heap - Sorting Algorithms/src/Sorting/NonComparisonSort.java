@@ -1,13 +1,13 @@
 package Sorting;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class NonComparisonSort {
 
 
-
-
     public int[] counting_Sort(int[] arr, int printIntermediate) {
+        if(arr.length == 1)return arr;
+
         int min = Arrays.stream(arr).min().orElse(0);
         int max = Arrays.stream(arr).max().orElse(0);
 
@@ -33,6 +33,28 @@ public class NonComparisonSort {
         }
         return result;
     }
+
+//    public int[] counting_Sort(int[] arr,int printIntermediate) {
+//        int[] result = new int[arr.length];
+//
+//        SortedMap<Integer, Integer> freqMap = new TreeMap<>();
+//        for (int j : arr) {
+//            freqMap.put(j, freqMap.getOrDefault(j, 0) + 1);
+//        }
+//
+//        int index = 0;
+//        for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()) {
+//            int key = entry.getKey();
+//            Integer value = entry.getValue();
+//            for(int i = 0 ; i<value ;i++){
+//                result[index++] = key;
+//                if(printIntermediate == 1) System.out.println(Arrays.toString(result));
+//            }
+//            // Perform operations using the key and value
+//        }
+//
+//        return result;
+//    }
 
 //    public void countingSort(int[] arr, int radix, int ith_iteration) {
 //
